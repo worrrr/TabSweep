@@ -37,24 +37,20 @@ export interface AIGroupResult {
   color?: ChromeTabGroupColor
 }
 
-export interface TabHistoryEntry {
-  url: string
-  title: string
-  favIconUrl?: string
-  lastAccessed: number
-  visitCount: number
-  closed: boolean
-}
-
-export interface SearchResult {
-  tab: TabInfo | TabHistoryEntry
-  score: number
-  isOpen: boolean
-}
+export type AIProvider =
+  | 'deepseek'
+  | 'qwen'
+  | 'kimi'
+  | 'zhipu'
+  | 'minimax'
+  | 'openai'
+  | 'claude'
+  | 'gemini'
+  | 'custom'
 
 export interface AIConfig {
   enabled: boolean
-  provider: 'openai' | 'claude' | 'gemini' | 'custom'
+  provider: AIProvider
   apiKey: string
   endpoint?: string
   model?: string
@@ -66,12 +62,63 @@ export type ThemeMode = 'light' | 'dark' | 'system'
 
 export interface ExtensionSettings {
   ai: AIConfig
+  /** Natural-language tab cleanup policies sent to the LLM */
+  policies?: string
   language: 'auto' | 'en' | 'zh_CN'
   groupOnStartup: boolean
-  searchShortcut: string
+  searchShortcut?: string
   groupIndicatorStyle: GroupIndicatorStyle
   smartGroupTitle: boolean
   theme: ThemeMode
+}
+
+export interface CleanupCloseItem {
+  index: number
+  tabId: number
+  title: string
+  url: string
+  reason?: string
+  selected?: boolean
+}
+
+export interface CleanupGroupItem {
+  name: string
+  color: ChromeTabGroupColor
+  indices: number[]
+  tabs: { tabId: number; title: string; url: string }[]
+  selected?: boolean
+}
+
+export interface CleanupKeepItem {
+  index: number
+  tabId: number
+  title: string
+  url: string
+  reason?: string
+}
+
+export interface CleanupPlan {
+  windowId: number
+  close: CleanupCloseItem[]
+  groups: CleanupGroupItem[]
+  keep: CleanupKeepItem[]
+  raw?: string
+}
+
+export interface CleanupExecutePayload {
+  closeTabIds: number[]
+  groups: { name: string; color: ChromeTabGroupColor; tabIds: number[] }[]
+}
+
+export interface ToolCallLogItem {
+  id: string
+  name: string
+  arguments: Record<string, unknown>
+  result: Record<string, unknown>
+  ok: boolean
+  durationMs?: number
+  /** One-line human summary, e.g. 成功：已关闭 3 个标签 */
+  summary?: string
 }
 
 export interface WindowGroupsInfo {
@@ -91,15 +138,16 @@ export type MessageAction =
   | 'EXPAND_ALL_GROUPS'
   | 'COLLAPSE_ALL_GROUPS'
   | 'TOGGLE_GROUP_TITLES'
-  | 'SEARCH_TABS'
   | 'GET_GROUPS_PREVIEW'
   | 'REFRESH_GROUPS_PREVIEW'
   | 'GET_ALL_WINDOWS_PREVIEW'
   | 'GET_SETTINGS'
   | 'SAVE_SETTINGS'
-  | 'TOGGLE_SEARCH_OVERLAY'
   | 'SWITCH_TAB'
   | 'OPEN_URL'
+  | 'AI_CLEANUP_PLAN'
+  | 'AI_CLEANUP_EXECUTE'
+  | 'AI_CHAT'
 
 export interface ExtensionMessage {
   action: MessageAction

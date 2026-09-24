@@ -17,18 +17,24 @@ import {
   handleTabGroupUpdated,
   handleTabGroupRemoved,
 } from './tab-manager'
-import { searchTabs } from './searcher'
-import { recordTabVisit, getHistoryEntries } from './storage'
+import { buildCleanupPlan, executeCleanupPlan } from './cleanup'
+import { runChatAgent } from './agent'
 import { STORAGE_KEYS, DEFAULT_SETTINGS } from '../shared/constants'
-import type { ExtensionMessage, TabInfo, ExtensionSettings, WindowGroupsInfo } from '../shared/types'
+import type {
+  ExtensionMessage,
+  TabInfo,
+  ExtensionSettings,
+  WindowGroupsInfo,
+  CleanupExecutePayload,
+} from '../shared/types'
 
-console.log('[TabPilot] Service worker started')
+console.log('[TabSweep] Service worker started')
 
 chrome.runtime.onInstalled.addListener(() => {
-  console.log('[TabPilot] Extension installed')
+  console.log('[TabSweep] Extension installed')
 })
 
-// --- Tab history tracking + cache updates ---
+// --- Tab cache updates ---
 chrome.tabs.onCreated.addListener((tab) => {
   cacheAddTab(tab)
   if (tab.windowId !== undefined) debouncedCacheRebuild(tab.windowId)
@@ -36,10 +42,9 @@ chrome.tabs.onCreated.addListener((tab) => {
 
 chrome.tabs.onUpdated.addListener((_tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url && tab.title) {
-    recordTabVisit(tab.url, tab.title, tab.favIconUrl)
     cacheUpdateTab(tab)
     autoGroupNewTab(tab).catch((err) =>
-      console.error('[TabPilot] autoGroupNewTab failed:', err),
+      console.error('[TabSweep] autoGroupNewTab failed:', err),
     )
   } else if (changeInfo.url) {
     cacheUpdateTab(tab)
@@ -51,17 +56,6 @@ chrome.tabs.onRemoved.addListener((tabId) => {
   cacheRemoveTab(tabId)
 })
 
-chrome.tabs.onActivated.addListener(async (activeInfo) => {
-  try {
-    const tab = await chrome.tabs.get(activeInfo.tabId)
-    if (tab.url && tab.title) {
-      recordTabVisit(tab.url, tab.title, tab.favIconUrl)
-    }
-  } catch {
-    // Tab may have been removed
-  }
-})
-
 // --- Smart group title: toggle title on collapse/expand ---
 chrome.tabGroups.onUpdated.addListener((group) => {
   handleTabGroupUpdated(group)
@@ -71,64 +65,12 @@ chrome.tabGroups.onRemoved.addListener((group) => {
   handleTabGroupRemoved(group.id)
 })
 
-// --- Command handler (keyboard shortcut) ---
-chrome.commands.onCommand.addListener(async (command) => {
-  if (command === 'open-search') {
-    await toggleSearchOverlay()
-  }
-})
-
-async function toggleSearchOverlay() {
-  try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
-    if (!tab?.id || !tab.url) return
-    // Skip restricted URLs where content scripts can't run
-    if (tab.url.startsWith('chrome://') || tab.url.startsWith('chrome-extension://') || tab.url.startsWith('about:')) return
-
-    const tabId = tab.id
-
-    // Check if content script is already loaded
-    let isLoaded = false
-    try {
-      const [checkResult] = await chrome.scripting.executeScript({
-        target: { tabId },
-        func: () => !!(window as unknown as Record<string, boolean>).__ATM_SEARCH_LOADED__,
-      })
-      isLoaded = !!checkResult?.result
-    } catch {
-      // scripting.executeScript failed — tab may not support it
-    }
-
-    // Inject content script if not loaded
-    if (!isLoaded) {
-      const manifest = chrome.runtime.getManifest()
-      const contentScriptFiles = manifest.content_scripts?.[0]?.js || []
-      if (contentScriptFiles.length > 0) {
-        await chrome.scripting.executeScript({
-          target: { tabId },
-          files: contentScriptFiles,
-        })
-      }
-    }
-
-    // Toggle the overlay via executeScript
-    await chrome.scripting.executeScript({
-      target: { tabId },
-      func: () => {
-        const toggleFn = (window as unknown as Record<string, () => void>).__ATM_TOGGLE_SEARCH__
-        if (toggleFn) toggleFn()
-      },
-    })
-  } catch {
-    // Tab doesn't support scripting (e.g. chrome:// pages)
-  }
-}
 
 // --- Message handler ---
 chrome.runtime.onMessage.addListener(
   (message: ExtensionMessage, _sender, sendResponse) => {
     handleMessage(message).then(sendResponse).catch((err) => {
-      console.error('[TabPilot] Error:', err)
+      console.error('[TabSweep] Error:', err)
       sendResponse({ error: err.message })
     })
     return true
@@ -221,29 +163,6 @@ async function handleMessage(message: ExtensionMessage): Promise<unknown> {
       return result
     }
 
-    case 'SEARCH_TABS': {
-      const payload = message.payload as { query: string; windowId?: number } | undefined
-      const query = payload?.query ?? ''
-      const windowId = payload?.windowId
-      const tabs = await (windowId !== undefined
-        ? chrome.tabs.query({ windowId })
-        : chrome.tabs.query({ currentWindow: true }))
-      const openTabs: TabInfo[] = tabs
-        .filter((t) => t.id !== undefined)
-        .map((t) => ({
-          id: t.id!,
-          url: t.url || '',
-          title: t.title || '',
-          favIconUrl: t.favIconUrl,
-          windowId: t.windowId,
-          index: t.index,
-          active: t.active,
-          pinned: t.pinned,
-        }))
-      const history = await getHistoryEntries()
-      return searchTabs(query, openTabs, history)
-    }
-
     case 'GET_SETTINGS': {
       const data = await chrome.storage.local.get(STORAGE_KEYS.SETTINGS)
       const saved = (data[STORAGE_KEYS.SETTINGS] ?? {}) as Partial<ExtensionSettings>
@@ -273,9 +192,45 @@ async function handleMessage(message: ExtensionMessage): Promise<unknown> {
       return { ok: true }
     }
 
-    case 'TOGGLE_SEARCH_OVERLAY': {
-      await toggleSearchOverlay()
-      return { ok: true }
+    case 'AI_CLEANUP_PLAN': {
+      const windowId = await resolveWindowId(message.payload)
+      try {
+        const plan = await buildCleanupPlan(windowId)
+        return { ok: true, plan }
+      } catch (err) {
+        return { ok: false, error: (err as Error).message }
+      }
+    }
+
+    case 'AI_CLEANUP_EXECUTE': {
+      const payload = (message.payload || {}) as CleanupExecutePayload
+      try {
+        const result = await executeCleanupPlan(payload)
+        return { ok: true, ...result }
+      } catch (err) {
+        return { ok: false, error: (err as Error).message }
+      }
+    }
+
+    case 'AI_CHAT': {
+      const payload = (message.payload || {}) as {
+        messages?: { role: 'user' | 'assistant'; content: string }[]
+        windowId?: number
+        summary?: string
+      }
+      try {
+        const result = await runChatAgent(payload.messages || [], payload.windowId, payload.summary || '')
+        return {
+          ok: true,
+          reply: result.reply,
+          toolCalls: result.toolCalls,
+          indexToTabId: result.indexToTabId,
+          summary: result.summary,
+          summarizedCount: result.summarizedCount,
+        }
+      } catch (err) {
+        return { ok: false, error: (err as Error).message }
+      }
     }
 
     default:

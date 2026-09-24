@@ -43,6 +43,14 @@ async function getSettings(): Promise<ExtensionSettings> {
   return { ...DEFAULT_SETTINGS, ...saved }
 }
 
+function isAIEnabled(ai: ExtensionSettings['ai']): boolean {
+  if (!ai?.enabled) return false
+  if (ai.provider === 'custom') {
+    return !!ai.endpoint
+  }
+  return !!ai.apiKey
+}
+
 function tabsFromChrome(
   chromeTabs: chrome.tabs.Tab[],
   tabIds: number[],
@@ -252,7 +260,10 @@ export async function autoGroupNewTab(tab: chrome.tabs.Tab): Promise<void> {
     )
   } else {
     const groupId = await retryTabOperation(() =>
-      chrome.tabs.group({ tabIds: [tab.id!] }),
+      chrome.tabs.group({
+        tabIds: [tab.id!],
+        createProperties: { windowId },
+      }),
     )
     groupTitleMap.set(groupId, UNGROUPED_AI_GROUP_NAME)
     updatingGroups.add(groupId)
@@ -418,13 +429,18 @@ export async function getGroupsPreview(windowId: number, forceRefresh = false): 
 
   let result: GroupedTabs[]
 
-  if (forceRefresh && settings.ai.enabled && settings.ai.apiKey) {
+  if (forceRefresh && isAIEnabled(settings.ai)) {
     try {
-      const freeGroups = await groupTabsFreelyWithAI(tabs, settings.ai)
-      result = freeGroupsToGroupedTabs(freeGroups, tabs)
+      const client = new AIClient(settings.ai)
+      const usable = tabs.filter((t) => !t.pinned && t.id !== undefined)
+      const groups = await client.fastGroupTabs(
+        usable.map((t) => ({ id: t.id!, title: t.title || '', url: t.url || '' })),
+        settings.policies,
+      )
+      result = freeGroupsToGroupedTabs(groups, tabs)
       cacheIsAIGroupedMap.set(windowId, true)
     } catch (err) {
-      console.error('[TabPilot] AI free grouping failed, falling back to rules:', err)
+      console.warn('[TabSweep] AI fast grouping failed, falling back to rules:', err)
       result = ruleGroupsToGroupedTabs(classifyTabs(tabs), tabs)
       cacheIsAIGroupedMap.set(windowId, false)
     }
@@ -449,7 +465,7 @@ export async function getGroupsPreview(windowId: number, forceRefresh = false): 
  */
 export async function groupAllTabs(windowId: number): Promise<void> {
   const tabs = await chrome.tabs.query({ windowId, windowType: 'normal' })
-  const unpinnedTabs = tabs.filter((t) => !t.pinned)
+  const unpinnedTabs = tabs.filter((t) => !t.pinned && t.id !== undefined)
 
   const settings = await getSettings()
 
@@ -457,13 +473,20 @@ export async function groupAllTabs(windowId: number): Promise<void> {
 
   const hideTitles = titlesHiddenMap.get(windowId) ?? false
 
-  if (settings.ai.enabled && settings.ai.apiKey) {
+  if (isAIEnabled(settings.ai)) {
     try {
-      const freeGroups = await groupTabsFreelyWithAI(unpinnedTabs, settings.ai)
-      for (const group of freeGroups) {
+      const client = new AIClient(settings.ai)
+      const groups = await client.fastGroupTabs(
+        unpinnedTabs.map((t) => ({ id: t.id!, title: t.title || '', url: t.url || '' })),
+        settings.policies,
+      )
+      for (const group of groups) {
         if (group.tabIds.length === 0) continue
         const groupId = await retryTabOperation(() =>
-          chrome.tabs.group({ tabIds: group.tabIds as [number, ...number[]] }),
+          chrome.tabs.group({
+            tabIds: group.tabIds as [number, ...number[]],
+            createProperties: { windowId },
+          }),
         )
         groupTitleMap.set(groupId, group.name)
         await retryTabOperation(() =>
@@ -473,12 +496,12 @@ export async function groupAllTabs(windowId: number): Promise<void> {
           }),
         )
       }
-      previewCacheMap.set(windowId, sortGroups(freeGroupsToGroupedTabs(freeGroups, tabs)))
+      previewCacheMap.set(windowId, sortGroups(freeGroupsToGroupedTabs(groups, tabs)))
       cacheIsAIGroupedMap.set(windowId, true)
       await updateNewTabsBadge(windowId)
       return
     } catch (err) {
-      console.error('[TabPilot] AI free grouping failed, falling back to rules:', err)
+      console.warn('[TabSweep] AI fast grouping failed, falling back to rules:', err)
       // Fall through to rule engine
     }
   }
@@ -491,7 +514,10 @@ export async function groupAllTabs(windowId: number): Promise<void> {
     const title = getMessage(def.labelKey)
     const shouldCollapse = category === 'other'
     const groupId = await retryTabOperation(() =>
-      chrome.tabs.group({ tabIds: tabIds as [number, ...number[]] }),
+      chrome.tabs.group({
+        tabIds: tabIds as [number, ...number[]],
+        createProperties: { windowId },
+      }),
     )
     groupTitleMap.set(groupId, title)
 
@@ -516,7 +542,7 @@ export async function groupAllTabs(windowId: number): Promise<void> {
  */
 export async function classifyNewTabs(windowId: number): Promise<void> {
   const settings = await getSettings()
-  if (!settings.ai.enabled || !settings.ai.apiKey) {
+  if (!isAIEnabled(settings.ai)) {
     throw new Error('AI is not configured')
   }
 
@@ -571,7 +597,10 @@ export async function classifyNewTabs(windowId: number): Promise<void> {
         )
       } else {
         const groupId = await retryTabOperation(() =>
-          chrome.tabs.group({ tabIds: [tab.id!] }),
+          chrome.tabs.group({
+            tabIds: [tab.id!],
+            createProperties: { windowId },
+          }),
         )
         groupTitleMap.set(groupId, name)
         updatingGroups.add(groupId)
@@ -626,7 +655,7 @@ async function setAllGroupsCollapsed(windowId: number, collapsed: boolean): Prom
         chrome.tabGroups.update(groupId, { collapsed }),
       )
     } catch (err) {
-      console.error(`[TabPilot] Failed to update group ${groupId} collapsed=${collapsed}:`, err)
+      console.error(`[TabSweep] Failed to update group ${groupId} collapsed=${collapsed}:`, err)
     } finally {
       updatingGroups.delete(groupId)
     }
@@ -671,7 +700,7 @@ export async function toggleGroupTitles(windowId: number): Promise<boolean> {
           chrome.tabGroups.update(groupId, { title: savedTitle }),
         )
       } catch (err) {
-        console.error(`[TabPilot] Failed to restore title for group ${groupId}:`, err)
+        console.error(`[TabSweep] Failed to restore title for group ${groupId}:`, err)
       } finally {
         updatingGroups.delete(groupId)
       }
@@ -690,7 +719,7 @@ export async function toggleGroupTitles(windowId: number): Promise<boolean> {
           chrome.tabGroups.update(groupId, { title: '' }),
         )
       } catch (err) {
-        console.error(`[TabPilot] Failed to hide title for group ${groupId}:`, err)
+        console.error(`[TabSweep] Failed to hide title for group ${groupId}:`, err)
       } finally {
         updatingGroups.delete(groupId)
       }

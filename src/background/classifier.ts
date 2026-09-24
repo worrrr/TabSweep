@@ -108,7 +108,7 @@ export async function classifyTabsWithAI(
         groups.set(category, existing)
       }
     } catch (err) {
-      console.error('[TabPilot] AI classification failed, falling back to default:', err)
+      console.warn('[TabSweep] AI classification failed, falling back to default:', err)
       // Fallback: put uncertain tabs in "other"
       for (const tab of uncertainTabs) {
         const existing = groups.get('other') || []
@@ -142,6 +142,7 @@ export interface FreeGroupResult {
 export async function groupTabsFreelyWithAI(
   tabs: { url?: string; title?: string; id?: number }[],
   aiConfig: AIConfig,
+  policies?: string,
 ): Promise<FreeGroupResult[]> {
   const validTabs = tabs.filter(
     (t): t is { url: string; title: string; id: number } => !!t.id && !!t.url,
@@ -150,13 +151,8 @@ export async function groupTabsFreelyWithAI(
   if (validTabs.length === 0) return []
 
   const client = new AIClient(aiConfig)
-  const aiGroups = await client.groupTabsFreely(
-    validTabs.map((t) => ({ url: t.url, title: t.title || '' })),
+  return client.fastGroupTabs(
+    validTabs.map((t) => ({ id: t.id, title: t.title || '', url: t.url })),
+    policies,
   )
-
-  return aiGroups.map((g) => ({
-    name: g.name,
-    color: g.color || 'grey',
-    tabIds: g.tabIndices.map((i) => validTabs[i - 1].id),
-  }))
 }

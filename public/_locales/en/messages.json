@@ -1,15 +1,11 @@
 {
   "extName": {
-    "message": "TabPilot",
+    "message": "TabSweep AI - Browser Extension",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Autopilot for your browser tabs. Smart grouping, instant search, optional AI — all private.",
+    "message": "AI Browser Extension for Smart Tab Grouping & Cleanup with Natural Language Dialog & Policies.",
     "description": "Extension description"
-  },
-  "cmdOpenSearch": {
-    "message": "Open Tab Search",
-    "description": "Command to open the search overlay"
   },
   "groupTabs": {
     "message": "Group Tabs",
@@ -230,5 +226,524 @@
   "classifyingNewTabs": {
     "message": "Classifying...",
     "description": "Button state while classifying new tabs"
+  },
+  "btnChat": {
+    "message": "Chat",
+    "description": "Chat button in header"
+  },
+  "titleChat": {
+    "message": "AI Chat & Memory settings",
+    "description": "Tooltip for Chat button"
+  },
+  "btnSweep": {
+    "message": "Sweep",
+    "description": "AI cleanup button in header"
+  },
+  "btnSweeping": {
+    "message": "Sweeping...",
+    "description": "AI cleanup button loading state"
+  },
+  "titleSweep": {
+    "message": "Smartly sweep current tabs based on policies",
+    "description": "Tooltip for AI cleanup button"
+  },
+  "themeDark": {
+    "message": "Switch to light mode",
+    "description": "Tooltip when dark mode is active"
+  },
+  "themeLight": {
+    "message": "Switch to dark mode",
+    "description": "Tooltip when light mode is active"
+  },
+  "emptyTabs": {
+    "message": "No open tabs found",
+    "description": "Empty state when 0 tabs"
+  },
+  "emptyGroups": {
+    "message": "No tab groups",
+    "description": "Empty state when 0 groups"
+  },
+  "hasGroups": {
+    "message": "Contains tab groups",
+    "description": "Indicator tooltip when window has groups"
+  },
+  "titleGroupTabs": {
+    "message": "Use AI to name and organize tabs into groups",
+    "description": "Tooltip for AI smart grouping button"
+  },
+  "titleUngroup": {
+    "message": "Ungroup all tab groups in this window",
+    "description": "Tooltip for ungroup button"
+  },
+  "closeNotice": {
+    "message": "Dismiss",
+    "description": "Dismiss status banner button"
+  },
+  "aiReviewTitle": {
+    "message": "AI Cleanup Review",
+    "description": "Title of AI cleanup review modal"
+  },
+  "statusAllDone": {
+    "message": "Completed",
+    "description": "Badge when cleanup is fully executed"
+  },
+  "statusTabsClosed": {
+    "message": "Tabs Closed",
+    "description": "Badge when tabs have been closed"
+  },
+  "statusGroupsDone": {
+    "message": "Groups Created",
+    "description": "Badge when grouping has been executed"
+  },
+  "reviewClosed": {
+    "message": "Closed",
+    "description": "Review header closed count label"
+  },
+  "reviewSuggestClose": {
+    "message": "Close",
+    "description": "Review header suggest close count label"
+  },
+  "reviewGrouped": {
+    "message": "Grouped",
+    "description": "Review header grouped count label"
+  },
+  "reviewSuggestGroup": {
+    "message": "Group",
+    "description": "Review header suggest group count label"
+  },
+  "done": {
+    "message": "Done",
+    "description": "Done button text"
+  },
+  "doneAndReturn": {
+    "message": "Done",
+    "description": "Done and return button in review footer"
+  },
+  "btnCancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+  "tabsClosed": {
+    "message": "Tabs Closed",
+    "description": "Close section header when done"
+  },
+  "pendingClose": {
+    "message": "To Close ($1)",
+    "description": "Close section header when pending",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "closedSuccess": {
+    "message": "Closed $1 tabs ✓",
+    "description": "Tip when tabs closed successfully",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "uncheckToKeep": {
+    "message": "Uncheck to keep",
+    "description": "Tip on close section header"
+  },
+  "groupsCreated": {
+    "message": "Groups Created",
+    "description": "Group section header when done"
+  },
+  "pendingGroup": {
+    "message": "To Group ($1 groups)",
+    "description": "Group section header when pending",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "groupedSuccess": {
+    "message": "Created $1 groups ✓",
+    "description": "Tip when groups created successfully",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "uncheckToSkipGroup": {
+    "message": "Uncheck to skip",
+    "description": "Tip on group section header"
+  },
+  "btnConfirmClose": {
+    "message": "Close Tabs",
+    "description": "Confirm close tabs button"
+  },
+  "btnConfirmGroup": {
+    "message": "Group Tabs",
+    "description": "Confirm group tabs button"
+  },
+  "btnClosed": {
+    "message": "Closed ✓",
+    "description": "Closed state label"
+  },
+  "btnClosing": {
+    "message": "Closing...",
+    "description": "Closing state label"
+  },
+  "btnGrouped": {
+    "message": "Grouped ✓",
+    "description": "Grouped state label"
+  },
+  "noPlanSuggested": {
+    "message": "No tabs need cleanup or grouping",
+    "description": "Status when AI plan has 0 close and 0 groups"
+  },
+  "closedCountTip": {
+    "message": "Closed $1 tabs. Click [Group Tabs] to proceed",
+    "description": "Tip after closing tabs in review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "groupedCountTip": {
+    "message": "Created $1 groups. Click [Close Tabs] to proceed",
+    "description": "Tip after grouping tabs in review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "completedTip": {
+    "message": "Completed: closed $1 tabs, grouped $2 groups",
+    "description": "Status bar completed summary",
+    "placeholders": {
+      "closed": { "content": "$1" },
+      "groups": { "content": "$2" }
+    }
+  },
+  "cleanupStatusTip": {
+    "message": "Closed $1 tabs, grouped $2 groups",
+    "description": "Status bar summary",
+    "placeholders": {
+      "closed": { "content": "$1" },
+      "groups": { "content": "$2" }
+    }
+  },
+  "closeFailed": {
+    "message": "Failed to close tabs",
+    "description": "Close tabs failed"
+  },
+  "groupFailed": {
+    "message": "Failed to create groups",
+    "description": "Group tabs failed"
+  },
+  "cleaningStatus": {
+    "message": "Requesting cleanup plan...",
+    "description": "Status when requesting cleanup plan"
+  },
+  "introTitle": {
+    "message": "Welcome to AI Sweep",
+    "description": "First time intro title"
+  },
+  "introSubtitle": {
+    "message": "Smart cleanup and grouping tailored to your habits",
+    "description": "First time intro subtitle"
+  },
+  "introRule1Title": {
+    "message": "Ready-to-use default policies",
+    "description": "First time intro card 1 title"
+  },
+  "introRule1Desc": {
+    "message": "Automatically identifies ads, duplicate searches, and temporary redirects. Work and dev tabs are grouped, while pinned and active tabs are protected.",
+    "description": "First time intro card 1 description"
+  },
+  "introRule2Title": {
+    "message": "Customize policies with AI chat",
+    "description": "First time intro card 2 title"
+  },
+  "introRule2Desc": {
+    "message": "Click 'Chat' anytime to tell AI your preferences. It updates policies instantly, with import/export supported in Settings.",
+    "description": "First time intro card 2 description"
+  },
+  "btnStartDefault": {
+    "message": "Sweep with Default Policies",
+    "description": "First time intro start button"
+  },
+  "btnCustomizeRules": {
+    "message": "💬 Customize Rules with AI",
+    "description": "First time intro customize button"
+  },
+  "backHome": {
+    "message": "Back",
+    "description": "Back button title"
+  },
+  "aiChatTitle": {
+    "message": "AI Chat",
+    "description": "Chat view header title"
+  },
+  "slideMemory": {
+    "message": "5-turn sliding window",
+    "description": "Sliding memory badge"
+  },
+  "help": {
+    "message": "Help",
+    "description": "Help button"
+  },
+  "collapseHelp": {
+    "message": "Collapse",
+    "description": "Collapse help button"
+  },
+  "btnNewSession": {
+    "message": "Clear",
+    "description": "New session button"
+  },
+  "titleNewSession": {
+    "message": "Clear chat session (Policies are preserved)",
+    "description": "New session button tooltip"
+  },
+  "chatHelpContent": {
+    "message": "AI can execute list_tabs, close_tabs, group_tabs, and update_policies. Say 'In the future...' to set persistent rules. Active tab is protected.",
+    "description": "Chat view help text"
+  },
+  "chatNewSessionStarted": {
+    "message": "New session started (chat history cleared, long-term policies preserved).\nYou can say 'close all ad tabs', 'always close search results', etc.",
+    "description": "Initial message on new session"
+  },
+  "chatWelcome": {
+    "message": "Hello! I can help you organize tabs or record new policies.\nTry saying 'sweep tabs', 'close all ads', 'always close search results', etc.",
+    "description": "Initial welcome message in chat"
+  },
+  "chatErrorPrefix": {
+    "message": "(Error) ",
+    "description": "Error prefix in chat bubble"
+  },
+  "chatSummarizedNotice": {
+    "message": "Compressed $1 earlier turns (current: 5-turn sliding window + summary)",
+    "description": "Notification when turns are summarized",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "chatActionExecuted": {
+    "message": "Actions executed, see tool cards below:",
+    "description": "Message when AI executes tools"
+  },
+  "chatEmptyReply": {
+    "message": "(Empty reply)",
+    "description": "Fallback when AI reply is empty"
+  },
+  "executedSuccess": {
+    "message": "Success",
+    "description": "Tool execution success badge"
+  },
+  "executedFailed": {
+    "message": "Failed",
+    "description": "Tool execution failed badge"
+  },
+  "toolArguments": {
+    "message": "Arguments",
+    "description": "Tool arguments header"
+  },
+  "toolResult": {
+    "message": "Result",
+    "description": "Tool result header"
+  },
+  "aiThinking": {
+    "message": "AI is thinking & executing tools...",
+    "description": "AI busy thinking label"
+  },
+  "chatPlaceholder": {
+    "message": "Ask AI: sweep tabs / close search results / set rules...",
+    "description": "Chat textarea placeholder"
+  },
+  "btnSend": {
+    "message": "Send",
+    "description": "Chat send button"
+  },
+  "btnSave": {
+    "message": "Save",
+    "description": "Save button"
+  },
+  "btnSaved": {
+    "message": "Saved ✓",
+    "description": "Saved confirmation"
+  },
+  "modelGroupCn": {
+    "message": "Chinese Providers",
+    "description": "Chinese LLM providers group"
+  },
+  "modelGroupGlobal": {
+    "message": "Global Providers",
+    "description": "Global LLM providers group"
+  },
+  "modelGroupCustom": {
+    "message": "Custom / Local",
+    "description": "Custom or local LLM providers group"
+  },
+  "provider_deepseek": {
+    "message": "DeepSeek",
+    "description": "Provider DeepSeek"
+  },
+  "provider_qwen": {
+    "message": "Alibaba Cloud (Qwen)",
+    "description": "Provider Qwen"
+  },
+  "provider_kimi": {
+    "message": "Moonshot AI (Kimi)",
+    "description": "Provider Kimi"
+  },
+  "provider_zhipu": {
+    "message": "Zhipu AI (GLM)",
+    "description": "Provider Zhipu"
+  },
+  "provider_minimax": {
+    "message": "MiniMax",
+    "description": "Provider MiniMax"
+  },
+  "provider_openai": {
+    "message": "OpenAI",
+    "description": "Provider OpenAI"
+  },
+  "provider_claude": {
+    "message": "Claude",
+    "description": "Provider Claude"
+  },
+  "provider_gemini": {
+    "message": "Gemini",
+    "description": "Provider Gemini"
+  },
+  "provider_custom": {
+    "message": "Custom (Local / Compatible)",
+    "description": "Provider Custom"
+  },
+  "endpointLocked": {
+    "message": "Official endpoint locked",
+    "description": "Badge when preset endpoint is locked"
+  },
+  "disableThinkingNote": {
+    "message": "⚡ Thinking disabled (fast response)",
+    "description": "Note that thinking mode is disabled for speed"
+  },
+  "policiesSectionTitle": {
+    "message": "Memory & Policies",
+    "description": "Policies section heading in settings"
+  },
+  "charsCount": {
+    "message": "chars",
+    "description": "Characters counter label"
+  },
+  "policiesDesc": {
+    "message": "Core guidelines for AI cleanup. Tell AI in 'Chat' to update rules automatically.",
+    "description": "Policies description in settings"
+  },
+  "btnExportRules": {
+    "message": "Export",
+    "description": "Export policies button"
+  },
+  "titleExportRules": {
+    "message": "Export policies to text file",
+    "description": "Tooltip for export policies button"
+  },
+  "btnImportRules": {
+    "message": "Import",
+    "description": "Import policies button"
+  },
+  "titleImportRules": {
+    "message": "Import policies from text file",
+    "description": "Tooltip for import policies button"
+  },
+  "ruleImportSuccess": {
+    "message": "Rules imported successfully",
+    "description": "Toast when rules imported successfully"
+  },
+  "btnRestoreDefault": {
+    "message": "Restore Defaults",
+    "description": "Restore default policies button"
+  },
+  "titleRestoreDefault": {
+    "message": "Restore to built-in default rules",
+    "description": "Tooltip for restore default policies button"
+  },
+  "untitledTab": {
+    "message": "Untitled",
+    "description": "Untitled tab fallback"
+  },
+  "toolSummaryFailed": {
+    "message": "Failed: $1",
+    "description": "Tool summary failure",
+    "placeholders": {
+      "error": { "content": "$1" }
+    }
+  },
+  "toolSummaryListTabs": {
+    "message": "Read $1 tabs",
+    "description": "Tool summary for list_tabs",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "toolSummaryCloseTabs": {
+    "message": "Success: closed $1 tabs",
+    "description": "Tool summary for close_tabs",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "toolSummaryCloseTabsSkipped": {
+    "message": "Success: closed $1 tabs (skipped $2)",
+    "description": "Tool summary for close_tabs with skipped",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "skipped": { "content": "$2" }
+    }
+  },
+  "toolSummaryGroupTabs": {
+    "message": "Success: grouped \"$1\" ($2 tabs)",
+    "description": "Tool summary for group_tabs",
+    "placeholders": {
+      "name": { "content": "$1" },
+      "count": { "content": "$2" }
+    }
+  },
+  "toolSummaryUpdatePolicies": {
+    "message": "Success: rules saved ($1)",
+    "description": "Tool summary for update_policies",
+    "placeholders": {
+      "mode": { "content": "$1" }
+    }
+  },
+  "modeReplace": {
+    "message": "replaced",
+    "description": "Mode replace for policies update"
+  },
+  "modeAppend": {
+    "message": "appended",
+    "description": "Mode append for policies update"
+  },
+  "success": {
+    "message": "Success",
+    "description": "General success label"
+  },
+  "tabPinned": {
+    "message": "Pinned",
+    "description": "Pinned tab badge"
+  },
+  "closeTab": {
+    "message": "Close tab",
+    "description": "Close tab tooltip"
+  },
+  "tabsCount": {
+    "message": "$1 tabs",
+    "description": "Tabs count in window header",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "itemCount": {
+    "message": "$1 tabs",
+    "description": "Tab count badge inside group review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "cleanupFailed": {
+    "message": "AI cleanup failed",
+    "description": "AI cleanup plan request failed"
+  },
+  "chatInitialPrompt": {
+    "message": "Please help me customize my tab organization rules. My preferences are: ",
+    "description": "Initial chat prompt when customizing rules"
   }
 }

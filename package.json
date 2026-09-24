@@ -1,7 +1,7 @@
 {
-  "name": "tabpilot",
+  "name": "tabsweep-ai",
   "version": "1.0.0",
-  "description": "Autopilot for your browser tabs. Smart grouping, instant search, optional AI — all local, all private.",
+  "description": "TabSweep AI: Browser Extension for Smart Tab Grouping & Cleanup with Natural Language Dialog & Policies.",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,8 +12,8 @@
     "typecheck": "vue-tsc --noEmit",
     "lint": "vue-tsc --noEmit"
   },
-  "keywords": ["chrome-extension", "tab-manager", "tab-groups", "tab-organizer", "ai", "tabpilot"],
-  "author": "Florian",
+  "keywords": ["chrome-extension", "tab-manager", "tab-groups", "tab-organizer", "ai", "tabsweep"],
+  "author": "TabSweep Team",
   "license": "MIT",
   "packageManager": "pnpm@10.28.0",
   "dependencies": {

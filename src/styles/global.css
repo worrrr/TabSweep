@@ -2,81 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Apple-inspired Design Tokens ─── */
+/* ─── Edge / Fluent 2 Design Tokens ─── */
 
 :root {
   color-scheme: light dark;
 
+  /* Edge Light System */
   --bg-primary: #FFFFFF;
-  --bg-secondary: #F5F5F7;
+  --bg-secondary: #F3F3F3;
   --bg-elevated: #FFFFFF;
-  --text-primary: #1D1D1F;
-  --text-secondary: #86868B;
-  --text-tertiary: #AEAEB2;
-  --border: rgba(0, 0, 0, 0.06);
-  --accent: #007AFF;
-  --accent-soft: rgba(0, 122, 255, 0.1);
+  --text-primary: #181818;
+  --text-secondary: #5D5D5D;
+  --text-tertiary: #8C8C8C;
+  --border: rgba(0, 0, 0, 0.08);
+  --accent: #0078D4;
+  --accent-soft: rgba(0, 120, 212, 0.08);
   --hover: rgba(0, 0, 0, 0.04);
 
-  --shadow-xs: 0 0.5px 1px rgba(0, 0, 0, 0.04);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 0.5px 1px rgba(0, 0, 0, 0.04);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 0.5px rgba(0, 0, 0, 0.04);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-card: 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.05);
 
-  --group-blue: #007AFF;
-  --group-green: #34C759;
-  --group-purple: #AF52DE;
-  --group-cyan: #5AC8FA;
-  --group-red: #FF3B30;
-  --group-yellow: #FF9F0A;
-  --group-pink: #FF2D55;
-  --group-grey: #8E8E93;
+  --group-blue: #0078D4;
+  --group-green: #107C41;
+  --group-purple: #8764B8;
+  --group-cyan: #008272;
+  --group-red: #D13438;
+  --group-yellow: #D83B01;
+  --group-pink: #E3008C;
+  --group-grey: #68768A;
 }
 
 .dark {
   color-scheme: dark;
 
-  --bg-primary: #000000;
-  --bg-secondary: #1C1C1E;
-  --bg-elevated: #2C2C2E;
-  --text-primary: #F5F5F7;
-  --text-secondary: #98989D;
-  --text-tertiary: #636366;
+  /* Edge Dark System (Exact Match to Edge Extension Menu #242424) */
+  --bg-primary: #242424;
+  --bg-secondary: #2B2B2B;
+  --bg-elevated: #333333;
+  --text-primary: #EDEDED;
+  --text-secondary: #9C9C9C;
+  --text-tertiary: #707070;
   --border: rgba(255, 255, 255, 0.08);
-  --accent: #0A84FF;
-  --accent-soft: rgba(10, 132, 255, 0.15);
+  
+  /* Microsoft Fluent 2 Clear Sky Blue (浅澈清爽天蓝，彻底去除紫调) */
+  --accent: #2997FF;
+  --accent-soft: rgba(41, 151, 255, 0.12);
   --hover: rgba(255, 255, 255, 0.06);
 
-  --shadow-xs: 0 0.5px 1px rgba(0, 0, 0, 0.15);
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25), 0 0.5px 1px rgba(0, 0, 0, 0.15);
-  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3), 0 0 0 0.5px rgba(255, 255, 255, 0.06);
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.06);
 
-  --group-blue: #0A84FF;
-  --group-green: #30D158;
-  --group-purple: #BF5AF2;
-  --group-cyan: #64D2FF;
-  --group-red: #FF453A;
-  --group-yellow: #FFD60A;
-  --group-pink: #FF375F;
-  --group-grey: #98989D;
+  --group-blue: #2997FF;
+  --group-green: #32AD52;
+  --group-purple: #B488FF;
+  --group-cyan: #4CC2FF;
+  --group-red: #FF5D5D;
+  --group-yellow: #F6AD55;
+  --group-pink: #FF66AA;
+  --group-grey: #A0A0A0;
 }
 
 /* ─── Base Styles ─── */
 
-body {
+html, body {
+  width: 385px;
+  height: 580px;
+  max-width: 385px;
+  max-height: 580px;
   background: var(--bg-primary);
   color: var(--text-primary);
   margin: 0;
+  padding: 0;
+  overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 13px;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+#app {
+  width: 385px;
+  height: 580px;
+  max-width: 385px;
+  max-height: 580px;
+  overflow: hidden;
 }
 
 /* ─── Scrollbar ─── */
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 4px;
+  height: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -84,13 +103,13 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-tertiary);
-  border-radius: 10px;
-  opacity: 0;
+  background: var(--border);
+  border-radius: 9999px;
+  transition: background 0.2s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-secondary);
+  background: var(--text-tertiary);
 }
 
 /* ─── Focus Ring ─── */

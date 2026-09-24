@@ -1,15 +1,11 @@
 {
   "extName": {
-    "message": "TabPilot",
+    "message": "TabSweep AI 浏览器扩展",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "标签页自动驾驶。智能分组、即时搜索、可选 AI 增强 — 全部本地运行，隐私优先。",
+    "message": "Edge/Chrome 标签页 AI 智能分组与清理大扫除扩展。自然语言对话驱动记忆与规则。",
     "description": "Extension description"
-  },
-  "cmdOpenSearch": {
-    "message": "打开标签搜索",
-    "description": "Command to open the search overlay"
   },
   "groupTabs": {
     "message": "一键分组",
@@ -230,5 +226,524 @@
   "classifyingNewTabs": {
     "message": "归组中...",
     "description": "Button state while classifying new tabs"
+  },
+  "btnChat": {
+    "message": "对话",
+    "description": "Chat button in header"
+  },
+  "titleChat": {
+    "message": "AI 对话与记忆设定",
+    "description": "Tooltip for Chat button"
+  },
+  "btnSweep": {
+    "message": "AI 整理",
+    "description": "AI cleanup button in header"
+  },
+  "btnSweeping": {
+    "message": "整理中",
+    "description": "AI cleanup button loading state"
+  },
+  "titleSweep": {
+    "message": "根据策略智能整理当前标签",
+    "description": "Tooltip for AI cleanup button"
+  },
+  "themeDark": {
+    "message": "切至浅色模式",
+    "description": "Tooltip when dark mode is active"
+  },
+  "themeLight": {
+    "message": "切至深色模式",
+    "description": "Tooltip when light mode is active"
+  },
+  "emptyTabs": {
+    "message": "当前没有打开的标签页",
+    "description": "Empty state when 0 tabs"
+  },
+  "emptyGroups": {
+    "message": "暂无标签分组",
+    "description": "Empty state when 0 groups"
+  },
+  "hasGroups": {
+    "message": "包含标签组",
+    "description": "Indicator tooltip when window has groups"
+  },
+  "titleGroupTabs": {
+    "message": "调用 AI 提炼生动组名，自动分组",
+    "description": "Tooltip for AI smart grouping button"
+  },
+  "titleUngroup": {
+    "message": "解散此窗口全部标签组",
+    "description": "Tooltip for ungroup button"
+  },
+  "closeNotice": {
+    "message": "关闭提示",
+    "description": "Dismiss status banner button"
+  },
+  "aiReviewTitle": {
+    "message": "AI 整理审核",
+    "description": "Title of AI cleanup review modal"
+  },
+  "statusAllDone": {
+    "message": "全部完成",
+    "description": "Badge when cleanup is fully executed"
+  },
+  "statusTabsClosed": {
+    "message": "已关闭标签",
+    "description": "Badge when tabs have been closed"
+  },
+  "statusGroupsDone": {
+    "message": "已完成分组",
+    "description": "Badge when grouping has been executed"
+  },
+  "reviewClosed": {
+    "message": "已关",
+    "description": "Review header closed count label"
+  },
+  "reviewSuggestClose": {
+    "message": "建议关",
+    "description": "Review header suggest close count label"
+  },
+  "reviewGrouped": {
+    "message": "已分",
+    "description": "Review header grouped count label"
+  },
+  "reviewSuggestGroup": {
+    "message": "建议分",
+    "description": "Review header suggest group count label"
+  },
+  "done": {
+    "message": "完成",
+    "description": "Done button text"
+  },
+  "doneAndReturn": {
+    "message": "完成并返回",
+    "description": "Done and return button in review footer"
+  },
+  "btnCancel": {
+    "message": "取消",
+    "description": "Cancel button"
+  },
+  "tabsClosed": {
+    "message": "标签已关闭",
+    "description": "Close section header when done"
+  },
+  "pendingClose": {
+    "message": "待关闭（$1）",
+    "description": "Close section header when pending",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "closedSuccess": {
+    "message": "已成功关闭 $1 个标签 ✓",
+    "description": "Tip when tabs closed successfully",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "uncheckToKeep": {
+    "message": "取消勾选可保留",
+    "description": "Tip on close section header"
+  },
+  "groupsCreated": {
+    "message": "分组已创建",
+    "description": "Group section header when done"
+  },
+  "pendingGroup": {
+    "message": "待分组（$1 组）",
+    "description": "Group section header when pending",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "groupedSuccess": {
+    "message": "已成功创建 $1 个分组 ✓",
+    "description": "Tip when groups created successfully",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "uncheckToSkipGroup": {
+    "message": "取消勾选不进组",
+    "description": "Tip on group section header"
+  },
+  "btnConfirmClose": {
+    "message": "关闭标签",
+    "description": "Confirm close tabs button"
+  },
+  "btnConfirmGroup": {
+    "message": "分组标签",
+    "description": "Confirm group tabs button"
+  },
+  "btnClosed": {
+    "message": "已关闭 ✓",
+    "description": "Closed state label"
+  },
+  "btnClosing": {
+    "message": "关闭中…",
+    "description": "Closing state label"
+  },
+  "btnGrouped": {
+    "message": "已分组 ✓",
+    "description": "Grouped state label"
+  },
+  "noPlanSuggested": {
+    "message": "模型未建议关闭或分组任何标签",
+    "description": "Status when AI plan has 0 close and 0 groups"
+  },
+  "closedCountTip": {
+    "message": "已关闭 $1 个标签。可继续点击【分组标签】",
+    "description": "Tip after closing tabs in review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "groupedCountTip": {
+    "message": "已创建 $1 个分组。可继续点击【关闭标签】",
+    "description": "Tip after grouping tabs in review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "completedTip": {
+    "message": "已完成：关闭 $1 个，分组 $2 组",
+    "description": "Status bar completed summary",
+    "placeholders": {
+      "closed": { "content": "$1" },
+      "groups": { "content": "$2" }
+    }
+  },
+  "cleanupStatusTip": {
+    "message": "已关闭 $1 个，分组 $2 组",
+    "description": "Status bar summary",
+    "placeholders": {
+      "closed": { "content": "$1" },
+      "groups": { "content": "$2" }
+    }
+  },
+  "closeFailed": {
+    "message": "关闭失败",
+    "description": "Close tabs failed"
+  },
+  "groupFailed": {
+    "message": "分组失败",
+    "description": "Group tabs failed"
+  },
+  "cleaningStatus": {
+    "message": "正在请求 AI 生成整理计划…",
+    "description": "Status when requesting cleanup plan"
+  },
+  "introTitle": {
+    "message": "欢迎使用 AI 整理",
+    "description": "First time intro title"
+  },
+  "introSubtitle": {
+    "message": "按你的习惯，智能整理与分组",
+    "description": "First time intro subtitle"
+  },
+  "introRule1Title": {
+    "message": "已为你备好优质默认规则",
+    "description": "First time intro card 1 title"
+  },
+  "introRule1Desc": {
+    "message": "自动识别并建议关闭广告、重复搜索与临时跳转页；工作、开发与文档类标签将自动分组，固定与当前浏览标签始终受到保护。",
+    "description": "First time intro card 1 description"
+  },
+  "introRule2Title": {
+    "message": "随时与 AI 对话定制规则",
+    "description": "First time intro card 2 title"
+  },
+  "introRule2Desc": {
+    "message": "你可以随时点击顶部「对话」告诉 AI 你的使用习惯，AI 会即刻帮你更新整理策略。在「设置」中还支持一键导入与导出。",
+    "description": "First time intro card 2 description"
+  },
+  "btnStartDefault": {
+    "message": "直接按默认规则整理",
+    "description": "First time intro start button"
+  },
+  "btnCustomizeRules": {
+    "message": "💬 和 AI 对话定制规则",
+    "description": "First time intro customize button"
+  },
+  "backHome": {
+    "message": "返回主页",
+    "description": "Back button title"
+  },
+  "aiChatTitle": {
+    "message": "AI 对话",
+    "description": "Chat view header title"
+  },
+  "slideMemory": {
+    "message": "5轮滑动记忆",
+    "description": "Sliding memory badge"
+  },
+  "help": {
+    "message": "帮助",
+    "description": "Help button"
+  },
+  "collapseHelp": {
+    "message": "收起帮助",
+    "description": "Collapse help button"
+  },
+  "btnNewSession": {
+    "message": "新会话",
+    "description": "New session button"
+  },
+  "titleNewSession": {
+    "message": "清空会话内容（长期规则 Policies 完好保留）",
+    "description": "New session button tooltip"
+  },
+  "chatHelpContent": {
+    "message": "AI 可执行 list_tabs、close_tabs、group_tabs、update_policies。你说“以后…”会更新长期规则。唯一保护：当前活动标签不会被关闭。",
+    "description": "Chat view help text"
+  },
+  "chatNewSessionStarted": {
+    "message": "新会话已开始（旧对话已清空，长期规则 Policies 完好保留）。\n可对我说「把广告页全关掉」「以后搜索结果页都关」等。",
+    "description": "Initial message on new session"
+  },
+  "chatWelcome": {
+    "message": "你好！我可以帮你整理标签，或把新规则写进长期记忆。\n可以说「整理一下」「广告页全关掉」「以后搜索结果页都关掉」等。",
+    "description": "Initial welcome message in chat"
+  },
+  "chatErrorPrefix": {
+    "message": "（出错）",
+    "description": "Error prefix in chat bubble"
+  },
+  "chatSummarizedNotice": {
+    "message": "已压缩 $1 轮更早消息（当前为 5 轮滑动窗口 + 记忆摘要）",
+    "description": "Notification when turns are summarized",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "chatActionExecuted": {
+    "message": "已执行操作，见下方工具卡片：",
+    "description": "Message when AI executes tools"
+  },
+  "chatEmptyReply": {
+    "message": "（空回复）",
+    "description": "Fallback when AI reply is empty"
+  },
+  "executedSuccess": {
+    "message": "执行成功",
+    "description": "Tool execution success badge"
+  },
+  "executedFailed": {
+    "message": "执行失败",
+    "description": "Tool execution failed badge"
+  },
+  "toolArguments": {
+    "message": "参数 arguments",
+    "description": "Tool arguments header"
+  },
+  "toolResult": {
+    "message": "结果 result",
+    "description": "Tool result header"
+  },
+  "aiThinking": {
+    "message": "AI 正在思考或执行操作中，请稍候…",
+    "description": "AI busy thinking label"
+  },
+  "chatPlaceholder": {
+    "message": "说出指令：整理一下 / 把广告关掉 / 以后搜索结果都关掉…",
+    "description": "Chat textarea placeholder"
+  },
+  "btnSend": {
+    "message": "发送",
+    "description": "Chat send button"
+  },
+  "btnSave": {
+    "message": "保存",
+    "description": "Save button"
+  },
+  "btnSaved": {
+    "message": "已保存 ✓",
+    "description": "Saved confirmation"
+  },
+  "modelGroupCn": {
+    "message": "主流国模（推荐）",
+    "description": "Chinese LLM providers group"
+  },
+  "modelGroupGlobal": {
+    "message": "海外模型",
+    "description": "Global LLM providers group"
+  },
+  "modelGroupCustom": {
+    "message": "自定义 / 本地",
+    "description": "Custom or local LLM providers group"
+  },
+  "provider_deepseek": {
+    "message": "DeepSeek (深度求索)",
+    "description": "Provider DeepSeek"
+  },
+  "provider_qwen": {
+    "message": "通义千问 (Qwen)",
+    "description": "Provider Qwen"
+  },
+  "provider_kimi": {
+    "message": "月之暗面 (Kimi)",
+    "description": "Provider Kimi"
+  },
+  "provider_zhipu": {
+    "message": "智谱 (GLM)",
+    "description": "Provider Zhipu"
+  },
+  "provider_minimax": {
+    "message": "MiniMax",
+    "description": "Provider MiniMax"
+  },
+  "provider_openai": {
+    "message": "OpenAI",
+    "description": "Provider OpenAI"
+  },
+  "provider_claude": {
+    "message": "Claude",
+    "description": "Provider Claude"
+  },
+  "provider_gemini": {
+    "message": "Gemini",
+    "description": "Provider Gemini"
+  },
+  "provider_custom": {
+    "message": "自定义 (本地模型 / 兼容接口)",
+    "description": "Provider Custom"
+  },
+  "endpointLocked": {
+    "message": "官方接口已锁定",
+    "description": "Badge when preset endpoint is locked"
+  },
+  "disableThinkingNote": {
+    "message": "⚡ 默认关闭思考 (快速响应)",
+    "description": "Note that thinking mode is disabled for speed"
+  },
+  "policiesSectionTitle": {
+    "message": "记忆 / 规则 (Policies)",
+    "description": "Policies section heading in settings"
+  },
+  "charsCount": {
+    "message": "字符",
+    "description": "Characters counter label"
+  },
+  "policiesDesc": {
+    "message": "AI 整理的灵魂法则。在右上角【AI 对话】中说「以后…都关掉」，AI 会自动更新这里。",
+    "description": "Policies description in settings"
+  },
+  "btnExportRules": {
+    "message": "导出规则",
+    "description": "Export policies button"
+  },
+  "titleExportRules": {
+    "message": "导出规则为文本文件",
+    "description": "Tooltip for export policies button"
+  },
+  "btnImportRules": {
+    "message": "导入规则",
+    "description": "Import policies button"
+  },
+  "titleImportRules": {
+    "message": "从外部文本文件导入规则",
+    "description": "Tooltip for import policies button"
+  },
+  "ruleImportSuccess": {
+    "message": "规则导入成功",
+    "description": "Toast when rules imported successfully"
+  },
+  "btnRestoreDefault": {
+    "message": "恢复默认",
+    "description": "Restore default policies button"
+  },
+  "titleRestoreDefault": {
+    "message": "恢复为内置默认规则",
+    "description": "Tooltip for restore default policies button"
+  },
+  "untitledTab": {
+    "message": "未命名",
+    "description": "Untitled tab fallback"
+  },
+  "toolSummaryFailed": {
+    "message": "失败：$1",
+    "description": "Tool summary failure",
+    "placeholders": {
+      "error": { "content": "$1" }
+    }
+  },
+  "toolSummaryListTabs": {
+    "message": "已读取 $1 个标签",
+    "description": "Tool summary for list_tabs",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "toolSummaryCloseTabs": {
+    "message": "成功：已关闭 $1 个标签",
+    "description": "Tool summary for close_tabs",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "toolSummaryCloseTabsSkipped": {
+    "message": "成功：已关闭 $1 个标签（跳过 $2）",
+    "description": "Tool summary for close_tabs with skipped",
+    "placeholders": {
+      "count": { "content": "$1" },
+      "skipped": { "content": "$2" }
+    }
+  },
+  "toolSummaryGroupTabs": {
+    "message": "成功：已分组「$1」（$2 个标签）",
+    "description": "Tool summary for group_tabs",
+    "placeholders": {
+      "name": { "content": "$1" },
+      "count": { "content": "$2" }
+    }
+  },
+  "toolSummaryUpdatePolicies": {
+    "message": "成功：规则已$1保存",
+    "description": "Tool summary for update_policies",
+    "placeholders": {
+      "mode": { "content": "$1" }
+    }
+  },
+  "modeReplace": {
+    "message": "替换",
+    "description": "Mode replace for policies update"
+  },
+  "modeAppend": {
+    "message": "追加",
+    "description": "Mode append for policies update"
+  },
+  "success": {
+    "message": "成功",
+    "description": "General success label"
+  },
+  "tabPinned": {
+    "message": "固定",
+    "description": "Pinned tab badge"
+  },
+  "closeTab": {
+    "message": "关闭标签",
+    "description": "Close tab tooltip"
+  },
+  "tabsCount": {
+    "message": "$1 个标签",
+    "description": "Tabs count in window header",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "itemCount": {
+    "message": "$1 个",
+    "description": "Tab count badge inside group review",
+    "placeholders": {
+      "count": { "content": "$1" }
+    }
+  },
+  "cleanupFailed": {
+    "message": "AI 整理失败",
+    "description": "AI cleanup plan request failed"
+  },
+  "chatInitialPrompt": {
+    "message": "请帮我定制标签页整理规则，我的习惯是：",
+    "description": "Initial chat prompt when customizing rules"
   }
 }

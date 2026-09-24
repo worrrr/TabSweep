@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 100 100" fill="none" role="img" aria-label="整理与清理标签页">
+  <defs>
+    <linearGradient id="tile" x1="15" y1="5" x2="91" y2="96" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#32C4F2"/>
+      <stop offset="0.48" stop-color="#168DDF"/>
+      <stop offset="1" stop-color="#1459B8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100" height="100" rx="22" fill="url(#tile)"/>
+
+  <g transform="translate(-12.5 -12.5) scale(1.25)">
+    <rect x="16" y="18" width="68" height="64" rx="12" fill="white"/>
+    <path d="M17 39H83" stroke="#DDEEFF" stroke-width="3"/>
+    <rect x="23" y="27" width="23" height="7" rx="3.5" fill="#1684D7"/>
+    <rect x="51" y="27" width="22" height="7" rx="3.5" fill="#ACDAF6"/>
+
+    <rect x="47" y="43" width="6" height="23" rx="3" fill="#145BB0"/>
+    <rect x="43" y="62" width="14" height="7" rx="2.5" fill="#1684D7"/>
+    <path d="M44 67H56L64 77.5Q65 79 63 79H37Q35 79 36 77.5L44 67Z" fill="#F4B957"/>
+    <path d="M46 71L42 77M50 71V77M54 71L58 77" stroke="#D99535" stroke-opacity="0.55" stroke-width="1.7" stroke-linecap="round"/>
+  </g>
+</svg>

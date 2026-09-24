@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { GroupedTabs, GroupIndicatorStyle } from '../../shared/types'
+import { getMessage } from '../../shared/i18n'
 import GroupItem from './GroupItem.vue'
 
 withDefaults(defineProps<{
@@ -26,10 +27,10 @@ const emit = defineEmits<{
           <path d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" />
         </svg>
       </div>
-      <p class="text-[11px]" style="color: var(--text-tertiary);">No tabs to group</p>
+      <p class="text-[11px]" style="color: var(--text-tertiary);">{{ getMessage('emptyGroups') }}</p>
     </div>
   </div>
-  <div v-else class="py-1" :class="indicatorStyle === 'bar' ? 'space-y-0' : 'space-y-0'">
+  <div v-else class="py-1 space-y-0">
     <GroupItem
       v-for="group in groups"
       :key="group.groupName || group.category"
