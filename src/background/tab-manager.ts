@@ -747,16 +747,15 @@ export async function ungroupAllTabs(windowId: number): Promise<void> {
 }
 
 /**
- * Handle Chrome tab group update events for smart title toggling.
- * Always keep the full group title visible regardless of collapse state,
- * so the title is shown in the bookmarks bar on the new tab page.
+ * Handle Chrome tab group update events for title hiding state.
  */
 export async function handleTabGroupUpdated(group: chrome.tabGroups.TabGroup): Promise<void> {
   if (updatingGroups.has(group.id)) return
 
   const hidden = titlesHiddenMap.get(group.windowId) ?? false
   if (hidden) {
-    if (group.title !== '') {
+    if (group.title) {
+      groupTitleMap.set(group.id, group.title)
       updatingGroups.add(group.id)
       try {
         await chrome.tabGroups.update(group.id, { title: '' })
@@ -769,21 +768,8 @@ export async function handleTabGroupUpdated(group: chrome.tabGroups.TabGroup): P
     return
   }
 
-  const settings = await getSettings()
-  if (!settings.smartGroupTitle) return
-
-  const savedTitle = groupTitleMap.get(group.id)
-  if (!savedTitle) return
-
-  if (group.title === savedTitle) return
-
-  updatingGroups.add(group.id)
-  try {
-    await chrome.tabGroups.update(group.id, { title: savedTitle })
-  } catch {
-    // Group may have been removed
-  } finally {
-    updatingGroups.delete(group.id)
+  if (group.title) {
+    groupTitleMap.set(group.id, group.title)
   }
 }
 

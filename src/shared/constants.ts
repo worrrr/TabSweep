@@ -159,7 +159,6 @@ export const DEFAULT_SETTINGS: ExtensionSettings = {
   language: 'auto',
   groupOnStartup: false,
   groupIndicatorStyle: 'header',
-  smartGroupTitle: true,
   theme: 'system',
 }
 

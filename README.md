@@ -5,97 +5,116 @@
 <h1 align="center">TabSweep AI</h1>
 
 <p align="center">
-  <strong>Smart Tab Grouping & Cleanup Assistant with Natural Language Policies & Tool Calling.</strong><br/>
-  智能标签页分组整理助手 · 自然语言策略 · 原生 Tool Calling · 完整中英双语 · 100% 隐私安全
+  <strong>A browser tab cleanup & grouping extension driven purely by natural language rules and LLMs.</strong>
 </p>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/manifest-v3-green.svg" alt="Manifest V3" />
-  <img src="https://img.shields.io/badge/chrome-extension-yellow.svg" alt="Chrome / Edge Extension" />
+  <img src="https://img.shields.io/badge/browser-Edge%20%7C%20Chrome-0078D7.svg" alt="Chrome / Edge Extension" />
   <img src="https://img.shields.io/badge/vue-3-brightgreen.svg" alt="Vue 3" />
   <img src="https://img.shields.io/badge/typescript-5-blue.svg" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/i18n-en%20%7C%20zh_CN-purple.svg" alt="i18n Support" />
+</p>
+
+<p align="center">
+  <strong>🇺🇸 English</strong> · <a href="README.zh-CN.md">🇨🇳 简体中文</a>
 </p>
 
 ---
 
-## 🌟 核心特性 / Features
+## 💡 What is TabSweep AI?
 
-- 🧹 **AI 整理（AI Sweep）**：基于大模型原生 Tool Calling 智能分析当前窗口标签，识别同站冗余、一次性搜索页和待归档内容，提供可视化审核弹窗，一键完成安全关闭与规整分组。
-- ⚡ **快速智能分组（Group Tabs）**：卡片一键快速分组，零弹窗即时生效（~0.4s），深度对齐用户自定义策略，严格锁定所属窗口，杜绝跨窗口漂移。
-- 💬 **AI 对话助手（Agent Chat）**：支持多轮对话与自主工具调用（`list_tabs`、`close_tabs`、`group_tabs`、`update_policies`），内置对话滑动窗口与上下文自动压缩总结。
-- 🧠 **长期记忆策略（Custom Policies）**：设置页提供自然语言整理与分组规则编辑器，对话中可直接说「以后…都帮我归到工作组」持久化保存。
-- 🌐 **多模型生态（Multi-Provider）**：内置 DeepSeek、通义千问 (Qwen)、月之暗面 (Kimi)、智谱 (GLM)、MiniMax、OpenAI、Claude、Gemini 以及本地模型（Ollama / vLLM / LM Studio）。
-- 🌍 **全量中英双语（Full i18n）**：界面 UI、系统提示词（System Prompt）、工具 Schema（Tool Calling Schema）及上下文压缩均自动根据浏览器系统语言无缝切换；英文环境下提示词纯英文化。
+**TabSweep AI** is a **browser tab cleanup and grouping extension driven purely by natural language rules and Large Language Models (LLMs)**.
+
+Unlike traditional tab managers that rely on rigid, hardcoded domain or keyword matching rules, TabSweep AI lets you express your organization habits in **plain natural language policies**. Powered by LLMs, it understands the context of your open tabs and automatically decides **which cluttered tabs should be closed and how the rest should be grouped**.
+
+### 🎯 Who is it for & Use Cases
+
+- **For "Tab Hoarders" who rarely close tabs**: If you constantly keep dozens or hundreds of tabs open and find it exhausting to manually sort or close them one by one.
+- **Fast batch-closing of similar & redundant tabs**: Instantly detect and close one-off search result pages, duplicate tabs from the same site/console, or leftover login/redirect intermediate pages.
+- **Complex personal workflows requiring natural language rules**: When static rules fall short, you can write custom rules in plain language (e.g., *"Keep at most 1 most useful tab per website"*, *"Close all search result pages, keep only video playback pages on YouTube/Bilibili"*, *"Group all Tencent Cloud and Cloudflare tabs into a 'Domains' group"*).
+
+### 💰 Ultra-Low Cost per Call
+
+Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 Flash**, **a single cleanup call costs only ~¥0.0049 RMB (< $0.0007 USD)**! That means pennies can power dozens of smart tab sweeps. Plus, you can connect local models via Ollama or vLLM for 100% free offline usage.
 
 ---
 
-## 🚀 快速上手 / Quick Start
+## 📸 Screenshots
 
-### 1. 构建扩展 / Build
+| Main View & Multi-Window Groups | AI Cleanup & Grouping Review | AI Chat & Rule Customization |
+| :---: | :---: | :---: |
+| <img src="docs/screenshots/main-groups.png" width="260" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="260" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="260" alt="AI Chat" /> |
+| Clear overview of window groups & tabs | Explicit close reasons & group suggestions with checkbox confirmation | Conversational tab control & natural language policy updates |
+
+---
+
+## 🌟 Key Features
+
+- 🧹 **AI Cleanup Review Flow (AI Sweep)**: Analyzes all tabs in your current window via native LLM Tool Calling, generating a checklist of "Tabs to Close (with specific reasons)" and "Suggested Groups". **Review and confirm before execution**, with built-in protection so your active tab is never accidentally closed.
+- ⚡ **One-Click Fast Grouping (Group Tabs)**: Instantly organize tabs in the current window according to your natural language policies without confirmation popups or cross-window drift.
+- 💬 **Conversational Tab Agent (AI Chat)**: Multi-turn chat with autonomous tool calling (`list_tabs`, `close_tabs`, `group_tabs`, `update_policies`) and a 5-turn sliding window memory. Simply tell the AI: *"Close all shopping tabs"* or *"Always put documentation tabs into the Dev group"*.
+- 🧠 **Pure Natural Language Policies**: Built-in plain-text policy editor in Settings with one-click `.txt` import/export to back up or refine your custom rules anytime.
+- 🌐 **Multi-Provider Ecosystem (BYOK & Local)**: Built-in presets for DeepSeek, Qwen, Kimi (Moonshot), Zhipu (GLM), MiniMax, OpenAI, Claude, and Gemini, plus full support for any OpenAI-compatible endpoint or local LLM (Ollama / vLLM / LM Studio).
+- 🔒 **100% Privacy First**: Zero developer backend servers. Your API keys and policies are stored strictly in local browser storage (`chrome.storage.local`), requiring only minimal permissions (`tabs`, `tabGroups`, `storage`). See our [Privacy Policy](docs/PRIVACY_POLICY.md).
+
+---
+
+## 🚀 Quick Start
+
+### Option 1: Install from Releases (Recommended)
+
+1. Go to the **[Releases](https://github.com/worrrr/TabSweep/releases)** page, download the latest `tabsweep-ai-v1.0.0.zip`, and unzip it to a local folder.
+2. Open your browser's extension management page:
+   - **Edge**: `edge://extensions/`
+   - **Chrome**: `chrome://extensions/`
+3. Enable **Developer mode** in the top-right corner.
+4. Click **Load unpacked** and select the unzipped folder.
+
+### Option 2: Build from Source
 
 ```bash
-# 克隆仓库
+# Clone the repository
 git clone https://github.com/worrrr/TabSweep.git
 cd TabSweep
 
-# 安装依赖
+# Install dependencies
 pnpm install
 
-# 生产环境构建
+# Build for production (outputs to dist/)
 pnpm build
 ```
 
-构建完成后，产物将生成在 `dist` 目录下。
-
-### 2. 加载到浏览器 / Load Extension
-
-1. 打开浏览器扩展管理页面：
-   - **Chrome**: `chrome://extensions/`
-   - **Edge**: `edge://extensions/`
-2. 开启右上角的 **「开发者模式」 (Developer mode)**；
-3. 点击 **「加载已解压的扩展程序」 (Load unpacked)**；
-4. 选择并加载工程中的 **`dist`** 目录；
-5. 将 TabSweep AI 图标固定在浏览器工具栏即可开始使用。
+Then load the `dist` directory via **Load unpacked** in `edge://extensions/` or `chrome://extensions/`.
 
 ---
 
-## ⚙️ 模型配置 / AI Configuration
+## ⚙️ AI Configuration
 
-在扩展右上角点击 ⚙️ 进入设置页：
+Click the ⚙️ icon in the top-right of the popup to configure your preferred provider:
 
-| 配置项 | 推荐配置示例 | 说明 |
+| Provider | Model Example | Notes & Cost |
 |---|---|---|
-| **DeepSeek** | `deepseek-chat` | 官方原生支持，性价比高，响应极速 |
-| **通义千问** | `qwen-turbo` / `qwen-plus` | 阿里云百炼 API |
-| **Kimi** | `moonshot-v1-8k` | 月之暗面开放平台 |
-| **智谱 AI** | `glm-4-flash` | BigModel 平台 |
-| **本地模型** | `http://localhost:11434/v1` (Ollama) | 纯本地离线运行，保护数据隐私 |
+| **DeepSeek** | `deepseek-chat` / `deepseek-v4.1-flash` | **Highly Recommended**. Fast & ~**¥0.0049 RMB** per call |
+| **Qwen** | `qwen-turbo` / `qwen-plus` | Alibaba Cloud DashScope API |
+| **Kimi (Moonshot)** | `moonshot-v1-8k` | Moonshot AI Open Platform |
+| **Zhipu (GLM)** | `glm-4-flash` | BigModel Open Platform |
+| **Local LLM (Custom)** | `http://localhost:11434/v1` | Connect Ollama / vLLM, no API key required, 100% free & offline |
 
 ---
 
-## 🛠️ 开发与测试 / Development & Testing
+## 🛠️ Development & Testing
 
 ```bash
-# 启动开发服务器（热更新）
-pnpm dev
-
-# 运行全量单元测试（Vitest）
-pnpm test
-
-# 运行 TypeScript 类型检查
-pnpm typecheck
-
-# 生产环境打包构建
-pnpm build
+pnpm dev          # Start dev server with HMR
+pnpm test         # Run unit tests (Vitest)
+pnpm typecheck    # Run TypeScript type checking
+pnpm build        # Production build
 ```
 
 ---
 
-## 📄 开源许可与致谢 / License & Acknowledgements
+## 📄 License & Acknowledgements
 
-- 本项目基于开源项目 [TabPilot](https://github.com/florianlanx/tabpilot)（作者 Florian）二次深度开发。
-- 本项目遵循 **[MIT License](LICENSE)** 开源许可证。
-  - 原作者版权声明保留于 `LICENSE` 文件中（Copyright (c) 2025-present Florian）。
-  - 新增功能与重构代码保留开源共享精神。
+- Based on the open-source project [TabPilot](https://github.com/florianlanx/tabpilot) by Florian.
+- Licensed under the **[MIT License](LICENSE)**. Original copyright notice is retained in `LICENSE` (Copyright (c) 2025-present Florian).

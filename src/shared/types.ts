@@ -68,7 +68,6 @@ export interface ExtensionSettings {
   groupOnStartup: boolean
   searchShortcut?: string
   groupIndicatorStyle: GroupIndicatorStyle
-  smartGroupTitle: boolean
   theme: ThemeMode
 }
 

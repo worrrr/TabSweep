@@ -87,10 +87,6 @@
     "message": "Optional",
     "description": "Optional label"
   },
-  "enableAI": {
-    "message": "Enable AI-enhanced classification",
-    "description": "AI toggle label"
-  },
   "provider": {
     "message": "Provider",
     "description": "AI provider label"
@@ -210,14 +206,6 @@
   "styleBar": {
     "message": "Minimal",
     "description": "Minimal style indicator option"
-  },
-  "smartGroupTitle": {
-    "message": "Smart Group Title",
-    "description": "Smart group title toggle label"
-  },
-  "smartGroupTitleDesc": {
-    "message": "Always keep group title visible regardless of collapse state",
-    "description": "Smart group title toggle description"
   },
   "classifyNewTabs": {
     "message": "Classify New",

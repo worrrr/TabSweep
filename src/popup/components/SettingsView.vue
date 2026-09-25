@@ -15,6 +15,7 @@ const testing = ref(false)
 const testResult = ref<{ ok: boolean; error?: string } | null>(null)
 const fileInputRef = ref<HTMLInputElement | null>(null)
 const importSuccessMsg = ref('')
+const appVersion = chrome?.runtime?.getManifest?.()?.version || '1.0.0'
 
 const activePreset = computed<ProviderPreset>(() => {
   return PROVIDER_PRESETS[settings.value.ai.provider] || PROVIDER_PRESETS.custom
@@ -107,13 +108,12 @@ onMounted(async () => {
     }
   }
 
-  if (!settings.value.ai.enabled) {
-    settings.value.ai.enabled = true
-  }
+  settings.value.ai.enabled = true
   settings.value.groupIndicatorStyle = 'header'
 })
 
 async function saveSettings() {
+  settings.value.ai.enabled = true
   const preset = PROVIDER_PRESETS[settings.value.ai.provider] || PROVIDER_PRESETS.custom
   if (preset.isLockedEndpoint) {
     settings.value.ai.endpoint = preset.endpoint
@@ -188,104 +188,96 @@ async function testConnection() {
           {{ getMessage('aiConfig') }}
         </h2>
         <div class="rounded-xl overflow-hidden border shadow-sm" style="background: var(--bg-primary); border-color: var(--border);">
-          <!-- Enable Toggle -->
-          <label class="flex items-center justify-between px-3 py-2 cursor-pointer border-b hover:bg-[var(--hover)] transition-colors" style="border-color: var(--border);">
-            <span class="text-xs" style="color: var(--text-primary);">{{ getMessage('enableAI') }}</span>
-            <input type="checkbox" v-model="settings.ai.enabled" class="accent-[var(--accent)]" />
-          </label>
-
-          <template v-if="settings.ai.enabled">
-            <!-- Provider -->
-            <div class="px-3 py-2 border-b" style="border-color: var(--border);">
-              <label class="block text-[10px] font-medium mb-1 text-[var(--text-secondary)]">{{ getMessage('provider') }}</label>
-              <select
-                v-model="settings.ai.provider"
-                class="w-full text-xs rounded-lg p-1.5 outline-none border font-medium"
-                style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
+          <!-- Provider -->
+          <div class="px-3 py-2 border-b" style="border-color: var(--border);">
+            <label class="block text-[10px] font-medium mb-1 text-[var(--text-secondary)]">{{ getMessage('provider') }}</label>
+            <select
+              v-model="settings.ai.provider"
+              class="w-full text-xs rounded-lg p-1.5 outline-none border font-medium"
+              style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
+            >
+              <option
+                v-for="preset in Object.values(PROVIDER_PRESETS)"
+                :key="preset.id"
+                :value="preset.id"
               >
-                <option
-                  v-for="preset in Object.values(PROVIDER_PRESETS)"
-                  :key="preset.id"
-                  :value="preset.id"
-                >
-                  {{ getProviderDisplayName(preset) }}
-                </option>
-              </select>
-            </div>
+                {{ getProviderDisplayName(preset) }}
+              </option>
+            </select>
+          </div>
 
-            <!-- API Key -->
-            <div class="px-3 py-2 border-b" style="border-color: var(--border);">
-              <label class="block text-[10px] font-medium mb-1 text-[var(--text-secondary)]">{{ getMessage('apiKey') }}</label>
-              <input
-                type="password"
-                v-model="settings.ai.apiKey"
-                :placeholder="activePreset.apiKeyPlaceholder"
-                class="w-full text-xs rounded-lg p-1.5 outline-none border"
-                style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
-              />
-            </div>
+          <!-- API Key -->
+          <div class="px-3 py-2 border-b" style="border-color: var(--border);">
+            <label class="block text-[10px] font-medium mb-1 text-[var(--text-secondary)]">{{ getMessage('apiKey') }}</label>
+            <input
+              type="password"
+              v-model="settings.ai.apiKey"
+              :placeholder="activePreset.apiKeyPlaceholder"
+              class="w-full text-xs rounded-lg p-1.5 outline-none border"
+              style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
+            />
+          </div>
 
-            <!-- Endpoint -->
-            <div class="px-3 py-2 border-b" style="border-color: var(--border);">
-              <div class="flex items-center justify-between mb-1">
-                <label class="block text-[10px] font-medium text-[var(--text-secondary)]">{{ getMessage('endpoint') }}</label>
-                <span
-                  v-if="activePreset.isLockedEndpoint"
-                  class="text-[9px] px-1.5 py-0.2 rounded font-medium flex items-center gap-0.5"
-                  style="background: var(--accent-soft); color: var(--accent);"
-                >
-                  <svg class="w-2.5 h-2.5" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
-                  </svg>
-                  {{ getMessage('endpointLocked') }}
-                </span>
-              </div>
-              <input
-                type="url"
-                v-model="settings.ai.endpoint"
-                :readonly="activePreset.isLockedEndpoint"
-                :placeholder="activePreset.endpoint"
-                class="w-full text-xs rounded-lg p-1.5 outline-none border font-mono transition-all"
-                :class="activePreset.isLockedEndpoint ? 'opacity-65 cursor-not-allowed select-none' : ''"
-                style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
-              />
-            </div>
-
-            <!-- Model -->
-            <div class="px-3 py-2 border-b" style="border-color: var(--border);">
-              <div class="flex items-center justify-between mb-1">
-                <label class="block text-[10px] font-medium text-[var(--text-secondary)]">{{ getMessage('model') }}</label>
-                <span class="text-[9px] font-medium" style="color: var(--group-green);">
-                  {{ getMessage('disableThinkingNote') }}
-                </span>
-              </div>
-              <input
-                type="text"
-                v-model="settings.ai.model"
-                :placeholder="activePreset.defaultModel"
-                list="preset-models-list"
-                class="w-full text-xs rounded-lg p-1.5 outline-none border font-mono"
-                style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
-              />
-              <datalist id="preset-models-list">
-                <option v-for="m in activePreset.models" :key="m" :value="m" />
-              </datalist>
-            </div>
-
-            <!-- Test Connection Button -->
-            <div class="flex items-center gap-2 px-3 py-2">
-              <button
-                @click="testConnection"
-                :disabled="testing || !settings.ai.endpoint"
-                class="px-2.5 py-1 text-[11px] font-medium rounded-md border transition-all hover:bg-[var(--hover)] disabled:opacity-40"
-                style="border-color: var(--border); background: var(--bg-secondary); color: var(--text-primary);"
+          <!-- Endpoint -->
+          <div class="px-3 py-2 border-b" style="border-color: var(--border);">
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-[10px] font-medium text-[var(--text-secondary)]">{{ getMessage('endpoint') }}</label>
+              <span
+                v-if="activePreset.isLockedEndpoint"
+                class="text-[9px] px-1.5 py-0.2 rounded font-medium flex items-center gap-0.5"
+                style="background: var(--accent-soft); color: var(--accent);"
               >
-                {{ testing ? getMessage('testing') : getMessage('testConnection') }}
-              </button>
-              <span v-if="testResult?.ok" class="text-[11px] font-medium" style="color: var(--group-green);">✓ {{ getMessage('connected') }}</span>
-              <span v-else-if="testResult" class="text-[11px] truncate flex-1" style="color: var(--group-red);">✗ {{ testResult.error || getMessage('failed') }}</span>
+                <svg class="w-2.5 h-2.5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                </svg>
+                {{ getMessage('endpointLocked') }}
+              </span>
             </div>
-          </template>
+            <input
+              type="url"
+              v-model="settings.ai.endpoint"
+              :readonly="activePreset.isLockedEndpoint"
+              :placeholder="activePreset.endpoint"
+              class="w-full text-xs rounded-lg p-1.5 outline-none border font-mono transition-all"
+              :class="activePreset.isLockedEndpoint ? 'opacity-65 cursor-not-allowed select-none' : ''"
+              style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
+            />
+          </div>
+
+          <!-- Model -->
+          <div class="px-3 py-2 border-b" style="border-color: var(--border);">
+            <div class="flex items-center justify-between mb-1">
+              <label class="block text-[10px] font-medium text-[var(--text-secondary)]">{{ getMessage('model') }}</label>
+              <span class="text-[9px] font-medium" style="color: var(--group-green);">
+                {{ getMessage('disableThinkingNote') }}
+              </span>
+            </div>
+            <input
+              type="text"
+              v-model="settings.ai.model"
+              :placeholder="activePreset.defaultModel"
+              list="preset-models-list"
+              class="w-full text-xs rounded-lg p-1.5 outline-none border font-mono"
+              style="background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border);"
+            />
+            <datalist id="preset-models-list">
+              <option v-for="m in activePreset.models" :key="m" :value="m" />
+            </datalist>
+          </div>
+
+          <!-- Test Connection Button -->
+          <div class="flex items-center gap-2 px-3 py-2">
+            <button
+              @click="testConnection"
+              :disabled="testing || !settings.ai.endpoint"
+              class="px-2.5 py-1 text-[11px] font-medium rounded-md border transition-all hover:bg-[var(--hover)] disabled:opacity-40"
+              style="border-color: var(--border); background: var(--bg-secondary); color: var(--text-primary);"
+            >
+              {{ testing ? getMessage('testing') : getMessage('testConnection') }}
+            </button>
+            <span v-if="testResult?.ok" class="text-[11px] font-medium" style="color: var(--group-green);">✓ {{ getMessage('connected') }}</span>
+            <span v-else-if="testResult" class="text-[11px] truncate flex-1" style="color: var(--group-red);">✗ {{ testResult.error || getMessage('failed') }}</span>
+          </div>
         </div>
       </div>
 
@@ -353,23 +345,23 @@ async function testConnection() {
         </div>
       </div>
 
-      <!-- Section 3: Display Settings -->
-      <div>
-        <h2 class="text-[10px] font-semibold uppercase tracking-wider px-1 mb-1" style="color: var(--text-secondary);">
-          {{ getMessage('displaySettings') }}
-        </h2>
-        <div class="rounded-xl overflow-hidden border shadow-sm p-3" style="background: var(--bg-primary); border-color: var(--border);">
-
-
-          <!-- Smart group title toggle -->
-          <label class="flex items-center justify-between cursor-pointer">
-            <div>
-              <span class="text-xs block" style="color: var(--text-primary);">{{ getMessage('smartGroupTitle') }}</span>
-              <p class="text-[10px] text-[var(--text-tertiary)]">{{ getMessage('smartGroupTitleDesc') }}</p>
-            </div>
-            <input type="checkbox" v-model="settings.smartGroupTitle" class="accent-[var(--accent)] shrink-0 ml-2" />
-          </label>
-        </div>
+      <!-- Footer: Version & GitHub -->
+      <div class="flex items-center justify-between px-1 pt-1 pb-0.5">
+        <span class="text-[10px] font-mono select-none" style="color: var(--text-tertiary);">
+          v{{ appVersion }}
+        </span>
+        <a
+          href="https://github.com/worrrr/TabSweep"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-1 rounded-md transition-colors hover:bg-[var(--hover)] hover:text-[var(--text-primary)] flex items-center justify-center"
+          style="color: var(--text-tertiary);"
+          title="GitHub: worrrr/TabSweep"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
