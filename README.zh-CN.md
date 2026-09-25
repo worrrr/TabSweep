@@ -42,10 +42,10 @@
 
 ## 📸 界面预览
 
-| 主界面与多窗口分组 | AI 清理与分组审核流 | AI 对话与规则定制 |
+| 主界面与多窗口分组 | AI 清理与分组审核 | AI 对话与规则定制 |
 | :---: | :---: | :---: |
-| <img src="docs/screenshots/main-groups.png" width="260" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="260" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="260" alt="AI Chat" /> |
-| 清晰展示当前窗口分组与标签概览 | 列出每条关闭理由与分组建议，勾选确认后执行 | 对话式操作标签，一句话更新长期整理规则 |
+| <img src="docs/screenshots/main-groups.png" width="250" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="250" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="250" alt="AI Chat" /> |
+| 清晰展示当前窗口分组与标签概览 | 列出关闭理由与分组，勾选后执行 | 对话式操作标签，一句话更新规则 |
 
 ---
 

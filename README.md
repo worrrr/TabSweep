@@ -42,10 +42,10 @@ Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 
 
 ## 📸 Screenshots
 
-| Main View & Multi-Window Groups | AI Cleanup & Grouping Review | AI Chat & Rule Customization |
+| Main View & Window Groups | AI Cleanup & Group Review | AI Chat & Custom Policies |
 | :---: | :---: | :---: |
-| <img src="docs/screenshots/main-groups.png" width="260" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="260" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="260" alt="AI Chat" /> |
-| Clear overview of window groups & tabs | Explicit close reasons & group suggestions with checkbox confirmation | Conversational tab control & natural language policy updates |
+| <img src="docs/screenshots/main-groups.png" width="250" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="250" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="250" alt="AI Chat" /> |
+| Multi-window tab & group overview | Review close reasons & group plan | Chat with AI & update rules live |
 
 ---
 
