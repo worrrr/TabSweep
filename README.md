@@ -45,16 +45,6 @@ Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 
 
 ---
 
-## 📸 Screenshots
-
-| 01. Smart Grouping | 02. Smart Cleanup Review |
-| :---: | :---: |
-| <img src="docs/screenshots/promo-1-grouping-en.png" alt="Smart Grouping" width="480" /> | <img src="docs/screenshots/promo-2-cleanup-en.png" alt="Smart Cleanup Review" width="480" /> |
-| **03. Conversational Tab Agent** | **04. BYOK & Local Privacy** |
-| <img src="docs/screenshots/promo-3-agent-en.png" alt="Conversational Tab Agent" width="480" /> | <img src="docs/screenshots/promo-4-privacy-en.png" alt="BYOK & Local Privacy" width="480" /> |
-
----
-
 ## 🌟 Key Features
 
 - 🧹 **AI Cleanup Review Flow (AI Sweep)**: Analyzes all tabs in your current window via native LLM Tool Calling, generating a checklist of "Tabs to Close (with specific reasons)" and "Suggested Groups". **Review and confirm before execution**, with built-in protection so your active tab is never accidentally closed.

@@ -45,16 +45,6 @@
 
 ---
 
-## 📸 界面预览
-
-| 01 智能分组 | 02 智能清理 |
-| :---: | :---: |
-| <img src="docs/screenshots/promo-1-grouping-zh.png" alt="智能分组" width="480" /> | <img src="docs/screenshots/promo-2-cleanup-zh.png" alt="智能清理" width="480" /> |
-| **03 对话式整理** | **04 密钥与模型直连** |
-| <img src="docs/screenshots/promo-3-agent-zh.png" alt="对话式整理" width="480" /> | <img src="docs/screenshots/promo-4-privacy-zh.png" alt="密钥与模型直连" width="480" /> |
-
----
-
 ## 🌟 核心特性
 
 - 🧹 **AI 整理审核流（AI Sweep）**：基于大模型原生 Tool Calling 分析当前窗口标签，生成「建议关闭（附带具体原因）」与「建议分组」清单。**先预览勾选、确认后再执行**，且自动保护当前活动标签（Active Tab）不被误关。
