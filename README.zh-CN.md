@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-扩展商店官方上架-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/manifest-v3-green.svg" alt="Manifest V3" />
   <img src="https://img.shields.io/badge/browser-Edge%20%7C%20Chrome-0078D7.svg" alt="Chrome / Edge Extension" />
@@ -18,6 +19,10 @@
 
 <p align="center">
   <a href="README.md">🇺🇸 English</a> · <strong>🇨🇳 简体中文</strong>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/preview-4up-zh.png" alt="TabSweep AI 核心功能总览" width="100%" />
 </p>
 
 ---
@@ -42,10 +47,11 @@
 
 ## 📸 界面预览
 
-| 主界面与多窗口分组 | AI 清理与分组审核 | AI 对话与规则定制 |
-| :---: | :---: | :---: |
-| <img src="docs/screenshots/main-groups.png" width="250" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="250" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="250" alt="AI Chat" /> |
-| 清晰展示当前窗口分组与标签概览 | 列出关闭理由与分组，勾选后执行 | 对话式操作标签，一句话更新规则 |
+| 01 智能分组 | 02 智能清理 |
+| :---: | :---: |
+| <img src="docs/screenshots/promo-1-grouping-zh.png" alt="智能分组" width="480" /> | <img src="docs/screenshots/promo-2-cleanup-zh.png" alt="智能清理" width="480" /> |
+| **03 对话式整理** | **04 密钥与模型直连** |
+| <img src="docs/screenshots/promo-3-agent-zh.png" alt="对话式整理" width="480" /> | <img src="docs/screenshots/promo-4-privacy-zh.png" alt="密钥与模型直连" width="480" /> |
 
 ---
 
@@ -62,16 +68,21 @@
 
 ## 🚀 快速上手
 
-### 方式一：直接下载安装（推荐）
+### 方式一：从微软 Edge 官方商店一键安装（推荐）
 
-1. 前往本仓库的 **[Releases](https://github.com/worrrr/TabSweep/releases)** 页面，下载最新的 `tabsweep-ai-v1.0.0.zip` 并解压到本地文件夹；
+官方扩展商店已正式上线，点击即可一键安装：  
+👉 **[在 Microsoft Edge 加载项商店安装 TabSweep AI](https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega)**
+
+### 方式二：下载离线包安装 (Releases)
+
+1. 前往本仓库的 **[Releases](https://github.com/worrrr/TabSweep/releases)** 页面，下载最新的 `tabsweep-ai-v1.0.1.zip`（或最新版本）并解压到本地文件夹；
 2. 打开浏览器扩展管理页面：
    - **Edge**: `edge://extensions/`
    - **Chrome**: `chrome://extensions/`
 3. 开启页面右上角的 **「开发者模式」 (Developer mode)**；
 4. 点击 **「加载解压缩的扩展」 (Load unpacked)**，选择刚刚解压出来的文件夹即可。
 
-### 方式二：从源码构建
+### 方式三：从源码构建
 
 ```bash
 # 克隆仓库
@@ -98,23 +109,23 @@ pnpm build
 | **DeepSeek** | `deepseek-chat` / `deepseek-v4.1-flash` | **强烈推荐**，响应极快，单次调用成本仅约 **¥0.0049 元** |
 | **通义千问 (Qwen)** | `qwen-turbo` / `qwen-plus` | 阿里云百炼平台，中文理解稳定 |
 | **Kimi (Moonshot)** | `moonshot-v1-8k` | 月之暗面开放平台 |
-| **智谱 AI (GLM)** | `glm-4-flash` | BigModel 开放平台 |
-| **本地模型 (Custom)** | `http://localhost:11434/v1` | 对接 Ollama / vLLM，免 API Key，完全离线免费 |
+| **智谱 (GLM)** | `glm-4-flash` | 智谱开放平台 |
+| **本地大模型 (自定义)** | `http://localhost:11434/v1` | 直连 Ollama / vLLM，无需 Key，100% 免费离线运行 |
 
 ---
 
-## 🛠️ 开发与测试命令
+## 🛠️ 本地开发与测试
 
 ```bash
-pnpm dev          # 启动开发服务器（热更新）
-pnpm test         # 运行全量单元测试（Vitest）
-pnpm typecheck    # 运行 TypeScript 类型检查
-pnpm build        # 生产环境打包构建
+pnpm dev          # 启动 Vite 开发热重载服务器
+pnpm test         # 执行单元测试 (Vitest)
+pnpm typecheck    # 执行 TypeScript 类型检查
+pnpm build        # 构建生产安装包 (输出至 dist/)
 ```
 
 ---
 
 ## 📄 开源许可与致谢
 
-- 本项目基于开源项目 [TabPilot](https://github.com/florianlanx/tabpilot)（作者 Florian）二次深度开发。
-- 本项目遵循 **[MIT License](LICENSE)** 开源许可证。原作者版权声明完整保留于 `LICENSE` 文件中（Copyright (c) 2025-present Florian）。
+- 本项目基于开源项目 [TabPilot](https://github.com/florianlanx/tabpilot)（作者 Florian）衍生演进。
+- 遵循 **[MIT License](LICENSE)** 开源协议。项目保留了原作者的版权声明（`LICENSE` 中 Copyright (c) 2025-present Florian）。

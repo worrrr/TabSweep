@@ -142,11 +142,41 @@ async function handleMessage(message: ExtensionMessage): Promise<unknown> {
 
     case 'GET_ALL_WINDOWS_PREVIEW': {
       const windows = await chrome.windows.getAll({ windowTypes: ['normal'] })
-      const result: WindowGroupsInfo[] = await Promise.all(
-        windows.map(async (win) => {
+      const lastFocused = await chrome.windows.getLastFocused({ windowTypes: ['normal'] }).catch(() => null)
+      const activeWinId = lastFocused?.id
+
+      const items = await Promise.all(
+        windows.map(async (win): Promise<WindowGroupsInfo | null> => {
           const wid = win.id!
-          const groups = await getGroupsPreview(wid)
+          // 1. Filter out hidden internal windows with zero dimensions (e.g. Edge Startup Boost / Game Assist)
+          if ((win.width !== undefined && win.width <= 0) || (win.height !== undefined && win.height <= 0)) {
+            return null
+          }
+
           const tabs = await chrome.tabs.query({ windowId: wid })
+          // 2. Filter out empty shell windows with 0 tabs
+          if (tabs.length === 0) {
+            return null
+          }
+
+          // 3. Filter out unfocused background windows that only hold a single internal blank New Tab
+          const isCurrentWin = win.focused || wid === activeWinId
+          if (!isCurrentWin && tabs.length === 1) {
+            const onlyTab = tabs[0]
+            const url = (onlyTab.url || onlyTab.pendingUrl || '').toLowerCase()
+            const title = (onlyTab.title || '').trim()
+            const isBlankNewTab =
+              !url ||
+              url === 'about:blank' ||
+              url.startsWith('edge://newtab') ||
+              url.startsWith('chrome://newtab') ||
+              title === 'New tab'
+            if (isBlankNewTab) {
+              return null
+            }
+          }
+
+          const groups = await getGroupsPreview(wid)
           const hasGroups = tabs.some(
             (t) => t.groupId !== chrome.tabGroups.TAB_GROUP_ID_NONE,
           )
@@ -160,7 +190,8 @@ async function handleMessage(message: ExtensionMessage): Promise<unknown> {
           }
         }),
       )
-      return result
+
+      return items.filter((w): w is WindowGroupsInfo => w !== null)
     }
 
     case 'GET_SETTINGS': {

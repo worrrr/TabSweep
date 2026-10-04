@@ -1,6 +1,6 @@
 {
   "name": "tabsweep-ai",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TabSweep AI: Browser Extension for Smart Tab Grouping & Cleanup with Natural Language Dialog & Policies.",
   "type": "module",
   "scripts": {

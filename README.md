@@ -9,6 +9,7 @@
 </p>
 
 <p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-Add--ons%20Store-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/manifest-v3-green.svg" alt="Manifest V3" />
   <img src="https://img.shields.io/badge/browser-Edge%20%7C%20Chrome-0078D7.svg" alt="Chrome / Edge Extension" />
@@ -18,6 +19,10 @@
 
 <p align="center">
   <strong>🇺🇸 English</strong> · <a href="README.zh-CN.md">🇨🇳 简体中文</a>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/preview-4up-en.png" alt="TabSweep AI Overview" width="100%" />
 </p>
 
 ---
@@ -42,10 +47,11 @@ Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 
 
 ## 📸 Screenshots
 
-| Main View & Window Groups | AI Cleanup & Group Review | AI Chat & Custom Policies |
-| :---: | :---: | :---: |
-| <img src="docs/screenshots/main-groups.png" width="250" alt="Main View" /> | <img src="docs/screenshots/cleanup-review.png" width="250" alt="Cleanup Review" /> | <img src="docs/screenshots/agent-chat.png" width="250" alt="AI Chat" /> |
-| Multi-window tab & group overview | Review close reasons & group plan | Chat with AI & update rules live |
+| 01. Smart Grouping | 02. Smart Cleanup Review |
+| :---: | :---: |
+| <img src="docs/screenshots/promo-1-grouping-en.png" alt="Smart Grouping" width="480" /> | <img src="docs/screenshots/promo-2-cleanup-en.png" alt="Smart Cleanup Review" width="480" /> |
+| **03. Conversational Tab Agent** | **04. BYOK & Local Privacy** |
+| <img src="docs/screenshots/promo-3-agent-en.png" alt="Conversational Tab Agent" width="480" /> | <img src="docs/screenshots/promo-4-privacy-en.png" alt="BYOK & Local Privacy" width="480" /> |
 
 ---
 
@@ -62,16 +68,21 @@ Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 
 
 ## 🚀 Quick Start
 
-### Option 1: Install from Releases (Recommended)
+### Option 1: Install from Microsoft Edge Add-ons (Recommended)
 
-1. Go to the **[Releases](https://github.com/worrrr/TabSweep/releases)** page, download the latest `tabsweep-ai-v1.0.0.zip`, and unzip it to a local folder.
+Install directly from the official store with one click:  
+👉 **[Install TabSweep AI on Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega)**
+
+### Option 2: Install from GitHub Releases
+
+1. Go to the **[Releases](https://github.com/worrrr/TabSweep/releases)** page, download the latest `tabsweep-ai-v1.0.1.zip` (or newest release), and unzip it to a local folder.
 2. Open your browser's extension management page:
    - **Edge**: `edge://extensions/`
    - **Chrome**: `chrome://extensions/`
 3. Enable **Developer mode** in the top-right corner.
 4. Click **Load unpacked** and select the unzipped folder.
 
-### Option 2: Build from Source
+### Option 3: Build from Source
 
 ```bash
 # Clone the repository

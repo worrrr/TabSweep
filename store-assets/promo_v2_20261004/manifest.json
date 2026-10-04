@@ -1,0 +1,89 @@
+{
+  "project": "TabSweep AI",
+  "export_date": "2026-10-04",
+  "dimensions": [
+    1280,
+    800
+  ],
+  "files": [
+    "promo_1_grouping_1280x800.png",
+    "promo_2_cleanup_1280x800.png",
+    "promo_3_agent_1280x800.png",
+    "promo_4_privacy_1280x800.png"
+  ],
+  "source_screenshots": [
+    {
+      "file": "source/assets/source_1.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-2db3c738-1b26-4aa5-93f4-5d9870fb274a.png"
+    },
+    {
+      "file": "source/assets/source_2.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-a8535335-0758-48da-aa1c-46a4c0113dcf.png"
+    },
+    {
+      "file": "source/assets/source_3.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-c67d62d2-64e3-48a5-a5b6-7070d965c883.png"
+    },
+    {
+      "file": "source/assets/source_4.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-8350a2ad-ca9a-426e-bf7e-4c3a8d940c33.png"
+    }
+  ],
+  "crops": {
+    "grouping.png": {
+      "source": 1,
+      "bounds": [
+        1307,
+        80,
+        1692,
+        520
+      ]
+    },
+    "grouping_success.png": {
+      "source": 4,
+      "bounds": [
+        1315,
+        342,
+        1684,
+        373
+      ]
+    },
+    "cleanup_review.png": {
+      "source": 3,
+      "bounds": [
+        1307,
+        80,
+        1692,
+        334
+      ]
+    },
+    "cleanup_actions.png": {
+      "source": 3,
+      "bounds": [
+        1307,
+        611,
+        1692,
+        656
+      ]
+    },
+    "agent.png": {
+      "source": 2,
+      "bounds": [
+        1308,
+        80,
+        1693,
+        656
+      ]
+    }
+  },
+  "price_claim": {
+    "model": "DeepSeek V4.1 Flash",
+    "amount": "约 ¥0.005 / 单次整理",
+    "basis": "User verified; retained with model attribution and estimate wording."
+  },
+  "content_notes": [
+    "Actual supplied interface screenshots are cropped, not redrawn.",
+    "Agent callout is labelled as an instruction example; no successful execution is fabricated.",
+    "Local storage is described without claiming encryption or fully local cloud-model processing."
+  ]
+}

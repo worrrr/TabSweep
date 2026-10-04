@@ -1,0 +1,90 @@
+{
+  "project": "TabSweep AI",
+  "locale": "en",
+  "export_date": "2026-10-04",
+  "dimensions": [
+    1280,
+    800
+  ],
+  "files": [
+    "promo_1_grouping_en_1280x800.png",
+    "promo_2_cleanup_en_1280x800.png",
+    "promo_3_agent_en_1280x800.png",
+    "promo_4_privacy_en_1280x800.png"
+  ],
+  "source_screenshots": [
+    {
+      "file": "source/assets/source_1.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-2ea4366e-1e33-43ba-a7ef-4c16c5780651.png"
+    },
+    {
+      "file": "source/assets/source_2.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-d1bb35d6-f756-432e-8b6e-0e8e8089bbbd.png"
+    },
+    {
+      "file": "source/assets/source_3.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-1649e125-47ba-47fc-a52d-d31e2c7e74ea.png"
+    },
+    {
+      "file": "source/assets/source_4.png",
+      "original": "C:\\Users\\wu0\\AppData\\Local\\Temp\\codex-clipboard-92c9439d-39ad-4271-8d2e-1114ccea4e9f.png"
+    }
+  ],
+  "crops": {
+    "grouping.png": {
+      "source": 1,
+      "bounds": [
+        1307,
+        80,
+        1692,
+        520
+      ]
+    },
+    "grouping_success.png": {
+      "source": 3,
+      "bounds": [
+        1315,
+        384,
+        1684,
+        414
+      ]
+    },
+    "cleanup_review.png": {
+      "source": 2,
+      "bounds": [
+        1307,
+        80,
+        1692,
+        378
+      ]
+    },
+    "cleanup_actions.png": {
+      "source": 2,
+      "bounds": [
+        1307,
+        611,
+        1692,
+        656
+      ]
+    },
+    "agent.png": {
+      "source": 4,
+      "bounds": [
+        1307,
+        80,
+        1692,
+        656
+      ]
+    }
+  },
+  "price_claim": {
+    "model": "DeepSeek V4.1 Flash",
+    "amount": "Approximately CNY 0.005 per sweep",
+    "basis": "User-verified price, unchanged currency; no exchange-rate conversion."
+  },
+  "content_notes": [
+    "Real English UI screenshots supplied by the user.",
+    "Agent prompt is explicitly marked as an example.",
+    "Privacy copy distinguishes local settings storage from cloud-model requests."
+  ]
+}

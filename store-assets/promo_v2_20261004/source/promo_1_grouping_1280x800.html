@@ -1,0 +1,65 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><title>TabSweep AI · 1</title><style>
+*{box-sizing:border-box}html,body{margin:0;width:1280px;height:800px;overflow:hidden}
+body{font-family:'Microsoft YaHei','Segoe UI',sans-serif;color:#15243b;background:#f5f8fd}
+.page{position:relative;width:1280px;height:800px;background:radial-gradient(ellipse at 89% 15%,var(--wash) 0,transparent 55%),radial-gradient(ellipse at 8% 97%,#e8eefb 0,transparent 46%);overflow:hidden}
+.brand{position:absolute;left:64px;top:44px;display:flex;align-items:center;gap:12px}
+.brand img{width:42px;height:42px;border-radius:11px}
+.brand strong{font-family:'Segoe UI','Microsoft YaHei',sans-serif;font-size:23px;letter-spacing:-.5px;font-weight:750}
+.page-number{position:absolute;right:65px;top:57px;font-size:14px;font-weight:600;letter-spacing:1px;color:#8191a8}
+.copy{position:absolute;left:64px;top:164px;width:560px}
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:16px;color:var(--accent);font-weight:700;letter-spacing:1px}
+.eyebrow:before{content:'';width:8px;height:8px;border-radius:50%;background:var(--accent)}
+h1{font-size:59px;line-height:1.2;letter-spacing:-2px;margin:22px 0 0;font-weight:700}
+.subtitle{font-size:22px;line-height:1.75;color:#586b82;margin:23px 0 0;font-weight:400}
+.chips{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap;width:550px}
+.chip{display:flex;align-items:center;gap:8px;background:#ffffffc9;border:1px solid #dfe7f2;border-radius:11px;padding:12px 15px;font-size:16px;color:#334b67;font-weight:600;white-space:nowrap}
+.chip:before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.stage{position:absolute;left:644px;top:113px;width:572px;height:628px;border-radius:32px;background:linear-gradient(145deg,#ffffffb3,#ffffff52);border:1px solid #ffffff;box-shadow:0 28px 75px -32px #6483a82a}
+.ui{position:absolute;display:block;border:1px solid #dfe6ef;border-radius:14px;box-shadow:0 18px 45px -15px #536b8c42;overflow:hidden;background:#fff}
+.ui img{display:block;width:100%;height:auto}
+.bottom-note{position:absolute;left:64px;bottom:61px;color:#61748e;font-size:15px;line-height:1.65}
+.price-inline{display:flex;align-items:center;gap:15px;border-top:1px solid #d9e3ef;padding-top:17px;width:495px}
+.price-inline b{font-size:25px;color:#234b81;letter-spacing:-.6px;font-weight:700}
+.price-inline span{font-size:14px;line-height:1.6;color:#627b97}
+.group-tabs{position:absolute;left:682px;top:125px;width:499px;display:flex;gap:9px;justify-content:center}
+.group-tab{font-size:15px;font-weight:600;padding:7px 12px;border-radius:9px;border:1px solid;background:#fff;white-space:nowrap}
+.group-ui{left:710px;top:173px;width:458px}
+.success-ui{left:710px;top:711px;width:458px;border-radius:10px;box-shadow:none;border-color:#d8eade}
+.cleanup-ui{left:666px;top:158px;width:526px}
+.confirm-label{position:absolute;left:669px;top:542px;display:flex;align-items:center;gap:13px;font-size:22px;font-weight:650;color:#2b435d}
+.confirm-label .dot{display:flex;align-items:center;justify-content:center;width:31px;height:31px;border-radius:50%;background:#e8eff8;color:#5079a5;font-size:18px}
+.cleanup-actions{left:666px;top:594px;width:526px;border-radius:12px}
+.cleanup-foot{position:absolute;left:674px;top:686px;font-size:16px;color:#728197}
+.agent-ui{left:797px;top:132px;width:399px}
+.prompt-label{position:absolute;left:681px;top:302px;font-size:14px;font-weight:700;color:#765ab7;letter-spacing:.5px;background:#f2ebff;border:1px solid #e0d4f5;padding:8px 14px;border-radius:9px;z-index:3}
+.prompt{position:absolute;left:681px;top:351px;width:473px;padding:29px 30px 31px;border-radius:18px;background:linear-gradient(135deg,#296fe9,#5263d6);box-shadow:0 16px 34px -12px #306ac369;font-size:26px;line-height:1.65;color:#fff;font-weight:550;z-index:3}
+.prompt:after{content:'';position:absolute;right:20px;bottom:-10px;width:26px;height:26px;background:#4c65d9;transform:rotate(45deg);border-radius:4px;z-index:-1}
+.agent-note{position:absolute;left:711px;top:543px;width:440px;font-size:16px;line-height:1.75;color:#63738a;z-index:3}
+.diagram-title{position:absolute;left:678px;top:146px;font-size:22px;font-weight:650;color:#263e58}
+.browser-card{position:absolute;left:680px;top:217px;width:222px;height:333px;padding:22px;border:1px solid #dce7f2;border-radius:20px;background:#fff;box-shadow:0 13px 28px -19px #41688760}
+.browser-brand{display:flex;align-items:center;gap:10px;font:700 20px 'Segoe UI',sans-serif}
+.browser-brand img{width:38px;height:38px;border-radius:10px}
+.local-label{font-size:13px;color:#5682a8;background:#eef6fc;padding:6px 9px;border-radius:7px;display:inline-block;margin:19px 0 14px}
+.storage-row{display:flex;align-items:center;gap:11px;margin-top:17px;font-size:18px;color:#304b66;font-weight:550}
+.storage-icon{width:30px;height:30px;border-radius:8px;background:#edf5fd;display:flex;align-items:center;justify-content:center;color:#5185b9}
+.storage-icon svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.model-card{position:absolute;left:970px;top:241px;width:211px;height:287px;padding:22px 20px;border:1px solid #dce7f2;border-radius:20px;background:#fff;box-shadow:0 13px 28px -19px #41688760}
+.model-title{font-size:22px;font-weight:650;margin-bottom:19px;color:#304b66}
+.model-chip{display:inline-block;padding:8px 10px;border-radius:8px;background:#f1f5fa;color:#4f647c;font-family:'Segoe UI','Microsoft YaHei',sans-serif;font-size:16px;font-weight:600;margin:0 5px 10px 0}
+.model-chip.primary{background:#e7f2ff;color:#286fa8}
+.model-foot{font-size:14px;color:#7890a8;margin-top:7px}
+.arrow{position:absolute;left:914px;top:354px;width:48px;text-align:center;font-size:14px;font-weight:600;color:#5581aa}
+.arrow svg{display:block;width:48px;height:28px;margin-top:10px;stroke:#669aca;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.direct-note{position:absolute;left:680px;top:581px;width:501px;padding:18px 20px;border-radius:15px;background:#edf8f4;border:1px solid #d6eae1;color:#38735e;font-size:17px;line-height:1.65}
+.direct-note b{font-size:18px;font-weight:650}
+.data-note{position:absolute;left:680px;top:685px;width:500px;color:#718498;font-size:14px;line-height:1.6}
+.cost-card{position:absolute;left:64px;top:583px;width:503px;height:150px;border:1px solid #d9e5ef;border-radius:18px;background:#ffffffd9;padding:20px 24px;box-shadow:0 13px 38px -25px #426c9960}
+.cost-label{font-family:'Segoe UI','Microsoft YaHei',sans-serif;font-size:16px;font-weight:600;color:#627a92}
+.cost-amount{font-size:46px;line-height:1.1;letter-spacing:-1.7px;font-weight:700;color:#245888;margin-top:10px}
+.cost-amount span{font-size:17px;letter-spacing:0;font-weight:500;color:#69819a;margin-left:12px}
+.cost-caption{font-size:13px;color:#8393a6;margin-top:10px}
+</style></head><body><div class="page" style="--accent:#237ec7;--wash:#dbeeff"><div class="brand"><img src="assets/icon.png"><strong>TabSweep AI</strong></div><div class="page-number">01 / 04</div>
+      <div class="copy"><div class="eyebrow">智能分组</div><h1>标签再多，<br>也能井井有条</h1><p class="subtitle">一键归入开发、AI、工作等彩色分组，<br>多个窗口也能统一管理。</p><div class="chips"><div class="chip">原生彩色标签组</div><div class="chip">多窗口统一管理</div></div></div>
+      <div class="stage"></div><div class="group-tabs"><span class="group-tab" style="color:#2583d5;border-color:#d6e8fb">开发</span><span class="group-tab" style="color:#9265c0;border-color:#e5d9f2">AI</span><span class="group-tab" style="color:#398c68;border-color:#d1e8dd">工作</span><span class="group-tab" style="color:#bd8126;border-color:#f0e1c6">资讯</span><span class="group-tab" style="color:#bb619a;border-color:#efd6e7">影音</span></div>
+      <div class="ui group-ui"><img src="assets/grouping.png"></div><div class="ui success-ui"><img src="assets/grouping_success.png"></div>
+      <div class="bottom-note price-inline"><b>约 ¥0.005 / 次</b><span>DeepSeek V4.1 Flash<br>单次整理参考费用</span></div></div></body></html>
