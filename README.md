@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-Add--ons%20Store-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-Add--ons%20Store-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/manifest-v3-green.svg" alt="Manifest V3" />
   <img src="https://img.shields.io/badge/browser-Edge%20%7C%20Chrome-0078D7.svg" alt="Chrome / Edge Extension" />
@@ -19,6 +19,12 @@
 
 <p align="center">
   <strong>🇺🇸 English</strong> · <a href="README.zh-CN.md">🇨🇳 简体中文</a>
+</p>
+
+<p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega">
+    <img src="https://img.shields.io/badge/Get%20it%20on-Microsoft%20Edge%20Add--ons-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white" height="42" alt="Get it on Microsoft Edge Add-ons" />
+  </a>
 </p>
 
 <p align="center">
@@ -60,8 +66,9 @@ Worried about LLM token costs? With high-efficiency models like **DeepSeek V4.1 
 
 ### Option 1: Install from Microsoft Edge Add-ons (Recommended)
 
-Install directly from the official store with one click:  
-👉 **[Install TabSweep AI on Edge Add-ons Store](https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega)**
+[![Get it on Microsoft Edge Add-ons](https://img.shields.io/badge/Install%20on-Microsoft%20Edge%20Add--ons-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega)
+
+> **Official Store Page**: [https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega](https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega) — Click to install with 1-click automatic updates.
 
 ### Option 2: Install from GitHub Releases
 

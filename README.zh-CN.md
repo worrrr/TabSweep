@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-扩展商店官方上架-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega"><img src="https://img.shields.io/badge/Microsoft%20Edge-扩展商店官方上架-0078D7?logo=microsoftedge&logoColor=white" alt="Edge Add-ons" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT License" /></a>
   <img src="https://img.shields.io/badge/manifest-v3-green.svg" alt="Manifest V3" />
   <img src="https://img.shields.io/badge/browser-Edge%20%7C%20Chrome-0078D7.svg" alt="Chrome / Edge Extension" />
@@ -19,6 +19,12 @@
 
 <p align="center">
   <a href="README.md">🇺🇸 English</a> · <strong>🇨🇳 简体中文</strong>
+</p>
+
+<p align="center">
+  <a href="https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega">
+    <img src="https://img.shields.io/badge/前往微软商店-一键安装%20Edge%20扩展-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white" height="42" alt="在微软 Edge 扩展商店一键安装 TabSweep AI" />
+  </a>
 </p>
 
 <p align="center">
@@ -60,8 +66,9 @@
 
 ### 方式一：从微软 Edge 官方商店一键安装（推荐）
 
-官方扩展商店已正式上线，点击即可一键安装：  
-👉 **[在 Microsoft Edge 加载项商店安装 TabSweep AI](https://microsoftedge.microsoft.com/addons/detail/concoommadbmcjpnpoankkpkpnhfdega)**
+[![前往微软商店安装](https://img.shields.io/badge/一键安装-Microsoft%20Edge%20扩展商店-0078D7?style=for-the-badge&logo=microsoftedge&logoColor=white)](https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega)
+
+> **微软官方商店直达页面**：[https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega](https://microsoftedge.microsoft.com/addons/detail/coneoommaebmcejnpoankkpkonhfdega) — 点击即可一键添加至 Edge，自动保持最新版本。
 
 ### 方式二：下载离线包安装 (Releases)
 
